@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lumière | Fine Dining & Casual Elegance</title>
+  <title>Millenium | Luxury Hospitality</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -43,12 +43,12 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-links a:hover { color: var(--primary); }
     .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-    .btn { padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); border: 2px solid transparent; font-size: 0.95rem; display: inline-block; }
+    .btn { padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); border: 2px solid transparent; font-size: 0.95rem; display: inline-block; text-align: center; }
     .btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
-    .btn-outline:hover { background: white; color:white; transform: translateY(-2px); }
-    .btn-primary { background: linear-gradient(135deg, var(white), var(white)); color: var( white); box-shadow: 0 4px 15px rgba(139,28,58,0.3); }
-    .btn-primary:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(139,28,58,0.4); }
-    .btn-accent { background: var(--accent); color: var(--dark); }
+    .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(139,28,58,0.3); border: none; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(139,28,58,0.4); }
+    .btn-accent { background: var(--accent); color: var(--dark); border: none; }
     .btn-accent:hover { background: #c2935f; transform: translateY(-2px); }
     .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text); }
 
@@ -75,7 +75,56 @@
     .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 2px; }
     .section-desc { font-size: 1.15rem; color: var(--text-light); max-width: 600px; margin: 1.5rem auto 0; }
 
-    /* About/Welcome */
+    /* Reserve Table Section */
+    .tables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+    .table-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid rgba(0,0,0,0.05); }
+    .table-card:hover { transform: translateY(-10px); }
+    .table-img-wrapper { position: relative; height: 220px; }
+    .table-img { width: 100%; height: 100%; object-fit: cover; }
+    .table-badge { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); padding: 0.4rem 0.8rem; border-radius: 10px; font-size: 0.8rem; font-weight: 700; color: var(--primary); }
+    .table-content { padding: 1.5rem; }
+    .table-info { display: flex; gap: 1.2rem; color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
+    .table-info i { color: var(--accent); }
+    .table-price { font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 1rem; }
+
+    /* Services Section */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+    .service-card { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); text-align: center; transition: var(--transition); }
+    .service-card:hover { transform: translateY(-10px); background: var(--primary); color: white; }
+    .service-card i { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
+    .service-card:hover i { color: var(--white); }
+    .service-card h3 { margin-bottom: 1rem; }
+
+    /* Gallery Section */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; max-width: 1300px; margin: 0 auto; }
+    .gallery-item { position: relative; height: 250px; border-radius: 15px; overflow: hidden; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(139,28,58,0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); color: white; font-size: 1.5rem; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Full Menu Modal */
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem; }
+    .modal-content { background: var(--bg); width: 100%; max-width: 1100px; height: 90vh; border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+    .modal-header { padding: 2rem; background: var(--white); border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .modal-close { font-size: 2rem; cursor: pointer; color: var(--text-light); }
+    .modal-body { flex-grow: 1; overflow-y: auto; padding: 2rem; }
+    
+    .menu-tabs { display: flex; gap: 2rem; margin-bottom: 2rem; justify-content: center; }
+    .menu-tab { padding: 0.8rem 2rem; border-radius: 50px; background: #eee; cursor: pointer; font-weight: 600; transition: var(--transition); }
+    .menu-tab.active { background: var(--primary); color: white; }
+    
+    .menu-items-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .menu-item-card { background: var(--white); padding: 1.5rem; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    .menu-item-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .menu-item-price { font-weight: 700; color: var(--primary); }
+    .menu-item-desc { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.5rem; height: 40px; overflow: hidden; }
+    .menu-item-actions { display: flex; align-items: center; gap: 1rem; }
+    .qty-input { width: 60px; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px; text-align: center; }
+    
+    .cart-summary { background: var(--primary); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+
+    /* Existing Sections */
     .welcome { background: var(--white); }
     .welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
     .welcome-img { width: 100%; height: 450px; object-fit: cover; border-radius: 20px; box-shadow: var(--shadow); }
@@ -85,95 +134,39 @@
     .feature-item { display: flex; align-items: center; gap: 0.8rem; font-weight: 500; }
     .feature-item i { color: var(--accent); font-size: 1.2rem; }
 
-    /* Menu Preview */
-    .menu-preview { background: var(--bg); }
-    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
-    .menu-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
-    .menu-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
-    .menu-img { width: 100%; height: 220px; object-fit: cover; }
-    .menu-content { padding: 1.5rem; }
-    .menu-content h3 { margin-bottom: 0.5rem; font-size: 1.4rem; }
-    .menu-content p { color: var(--text-light); margin-bottom: 1rem; font-size: 0.95rem; }
-    .menu-price { font-weight: 700; color: var(--primary); font-size: 1.3rem; }
-    .menu-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
-    .menu-actions .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
-
-    /* Experience/Why Dine */
-    .experience { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); }
-    .experience .section-title { color: var(--white); }
-    .experience .section-desc { color: rgba(255,255,255,0.85); }
-    .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
-    .exp-card { text-align: center; padding: 2rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: var(--transition); }
-    .exp-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.15); }
-    .exp-icon { width: 70px; height: 70px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.8rem; color: var(--dark); }
-    .exp-card h3 { margin-bottom: 0.8rem; font-size: 1.4rem; }
-    .exp-card p { opacity: 0.9; font-size: 0.95rem; }
-
-    /* Customer Reviews */
     .reviews { background: var(--white); }
     .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
     .review-card { background: var(--bg); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); position: relative; transition: var(--transition); }
-    .review-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
     .review-card::before { content: '\201C'; position: absolute; top: 15px; left: 25px; font-size: 5rem; color: var(--accent); opacity: 0.2; font-family: 'Playfair Display', serif; line-height: 1; }
     .stars { color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; }
     .review-text { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; position: relative; z-index: 1; }
     .review-author { display: flex; align-items: center; gap: 1rem; }
     .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--white); font-weight: 700; }
-    .author-info h4 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-    .author-info p { color: var(--text-light); font-size: 0.85rem; }
 
-    /* Location & Hours */
     .location { background: var(--bg); }
     .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
-    .map-placeholder { width: 100%; height: 400px; background: #e0e0e0; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 1.2rem; box-shadow: var(--shadow); }
+    .map-frame { width: 100%; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
     .info-block { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); }
     .info-block h3 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--primary); }
     .info-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px dashed #ddd; }
-    .info-row:last-child { border-bottom: none; }
-    .info-label { font-weight: 600; }
-    .info-value { color: var(--text-light); }
 
-    /* Auth CTA Section */
-    .auth-cta { background: linear-gradient(135deg, rgba(139,28,58,0.95), rgba(106,18,42,0.95)), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974'); background-size: cover; background-position: center; padding: 8rem 5%; text-align: center; color: var(--white); position: relative; }
-    .auth-content { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
-    .auth-cta h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-    .auth-cta p { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.95; }
-    .auth-buttons-large { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .auth-buttons-large .btn { padding: 1rem 2.5rem; font-size: 1.1rem; }
-
-    /* Footer */
     footer { background: var(--dark); color: #aaa; padding: 4rem 5% 2rem; }
     .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
     .footer-col h4 { color: var(--white); margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.8rem; }
     .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background: var(--accent); }
     .footer-col ul li { margin-bottom: 0.8rem; }
-    .footer-col a { transition: var(--transition); }
-    .footer-col a:hover { color: var(--accent); padding-left: 5px; }
-    .socials { display: flex; gap: 1rem; margin-top: 1rem; }
-    .socials a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: var(--transition); }
-    .socials a:hover { background: var(--accent); color: var(--dark); transform: translateY(-3px); }
-    .copyright { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
 
-    /* Animations & Utilities */
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* Responsive */
-    @media (max-width: 992px) {
-      .welcome-grid, .location-grid { grid-template-columns: 1fr; }
-      .welcome-img { height: 350px; margin-bottom: 2rem; }
-    }
     @media (max-width: 768px) {
       .menu-toggle { display: block; }
       .nav-links { position: fixed; top: 70px; right: -100%; width: 85%; max-width: 350px; height: calc(100vh - 70px); background: var(--white); flex-direction: column; align-items: flex-start; padding: 2.5rem; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: var(--transition); }
       .nav-links.active { right: 0; }
       .auth-buttons { flex-direction: column; width: 100%; margin-top: 1.5rem; }
-      .btn { width: 100%; text-align: center; }
-      .features-list { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 2.5rem; }
-      .auth-buttons-large { flex-direction: column; gap: 1rem; }
-      .auth-buttons-large .btn { width: 100%; }
+      .btn { width: 100%; }
+      .welcome-grid, .location-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -184,9 +177,10 @@
     <a href="#" class="logo">Mille<span>nium</span></a>
     <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
     <div class="nav-links" id="navLinks">
-      <a href="#menu">Menu</a>
-      <a href="#experience">Experience</a>
-      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+      <a href="#reserve">Reserve</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
       <a href="#location">Visit Us</a>
       <div class="auth-buttons">
         <a href="{{ url('/login') }}" class="btn btn-outline">Sign In</a>
@@ -198,19 +192,20 @@
   <!-- Hero Carousel -->
   <header class="hero">
     <div class="carousel">
-      <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070')"></div>
+      <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070')"></div>
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070')"></div>
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070')"></div>
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2070')"></div>
       <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070')"></div>
-      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974')"></div>
       <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?q=80&w=2070')"></div>
     </div>
     <div class="hero-content">
-      <div class="hero-badge">Open Daily 11AM - 11PM</div>
+      <div class="hero-badge">Excellence in Yaoundé</div>
       <h1>Taste the Art of <span style="color: var(--accent); display: block;">Modern Dining</span></h1>
-      <p>Handcrafted dishes, curated ambiance, and unforgettable moments. Reserve your table, order online, or join our rewards program today.</p>
+      <p>Luxury stay, exquisite plates, and unforgettable moments. Join us at Millenium for a unique experience.</p>
       <div class="hero-buttons">
-        <a href="#reservations" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Reserve a Table</a>
-        <a href="#menu" class="btn btn-outline" style="border-color: #fff; color: #fff;"><i class="fas fa-book-open"></i> Explore Menu</a>
-        <a href="{{ url('/login') }}" class="btn btn-accent"><i class="fas fa-user"></i> Sign In to Order</a>
+        <a href="#reserve" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Reserve a Table</a>
+        <a href="javascript:void(0)" onclick="openMenu()" class="btn btn-outline" style="border-color: #fff; color: #fff;"><i class="fas fa-book-open"></i> View Full Menu</a>
       </div>
     </div>
     <div class="carousel-indicators">
@@ -218,188 +213,186 @@
       <div class="indicator" data-slide="1"></div>
       <div class="indicator" data-slide="2"></div>
       <div class="indicator" data-slide="3"></div>
+      <div class="indicator" data-slide="4"></div>
+      <div class="indicator" data-slide="5"></div>
     </div>
   </header>
 
   <!-- Welcome Section -->
   <section class="welcome" id="about">
     <div class="welcome-grid">
-      <img src="https://images.unsplash.com/photo-1552566626-52f8b828b5ad?q=80&w=2070" alt="Restaurant Interior" class="welcome-img fade-in">
+      <img src="https://images.unsplash.com/photo-1552566626-52f8b828b5ad?q=80&w=2070" alt="Interior" class="welcome-img fade-in">
       <div class="welcome-text fade-in">
-        <span class="section-subtitle">Our Story</span>
-        <h3>Where Every Meal Becomes a Memory</h3>
-        <p>At Lumière, we believe dining is more than just food—it's an experience. Our chefs blend seasonal ingredients with global techniques to create dishes that surprise, comfort, and inspire. Whether you're joining us for a quick lunch, a romantic dinner, or a family celebration, we promise exceptional hospitality in every detail.</p>
+        <span class="section-subtitle">Our Legacy</span>
+        <h3>Where Every Meal is a Masterpiece</h3>
+        <p>At Millenium, we redefine luxury. Our restaurant combines the finest local flavors with international flair, served in an atmosphere of unmatched elegance.</p>
         <div class="features-list">
-          <div class="feature-item"><i class="fas fa-leaf"></i> Farm-to-Table Freshness</div>
-          <div class="feature-item"><i class="fas fa-wine-glass"></i> Crafted Cocktail Pairings</div>
-          <div class="feature-item"><i class="fas fa-mobile-alt"></i> Seamless Online Ordering</div>
-          <div class="feature-item"><i class="fas fa-gift"></i> Loyalty Rewards Program</div>
+          <div class="feature-item"><i class="fas fa-utensils"></i> Fine Dining</div>
+          <div class="feature-item"><i class="fas fa-bed"></i> Luxury Rooms</div>
+          <div class="feature-item"><i class="fas fa-wifi"></i> Free High-Speed WiFi</div>
+          <div class="feature-item"><i class="fas fa-parking"></i> Secure Parking</div>
         </div>
-        <a href="register.html" class="btn btn-outline">Join Our Community</a>
+        <a href="#reserve" class="btn btn-outline">Book Your Experience</a>
       </div>
     </div>
   </section>
 
-  <!-- Menu Preview -->
-  <section class="menu-preview" id="menu">
+  <!-- Reserve Table Section -->
+  <section id="reserve">
     <div class="section-header fade-in">
-      <span class="section-subtitle">Chef's Selection</span>
-      <h2 class="section-title">Featured Dishes</h2>
-      <p class="section-desc">A taste of what awaits. Order ahead or visit us to experience our full seasonal menu.</p>
+      <span class="section-subtitle">Reserve a Table</span>
+      <h2 class="section-title">Choose Your Setting</h2>
+      <p class="section-desc">From intimate dinners to group celebrations, find the perfect table for your occasion.</p>
     </div>
-    <div class="menu-grid">
-      <div class="menu-card fade-in">
-        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1974" alt="Grilled Salmon" class="menu-img">
-        <div class="menu-content">
-          <h3>Herb-Crusted Salmon</h3>
-          <p>Pan-seared Atlantic salmon with lemon dill sauce, roasted asparagus, and quinoa pilaf.</p>
-          <div class="menu-actions">
-            <span class="menu-price">$28</span>
-            <a href="{{ url('/login') }}" class="btn btn-primary">Add to Order</a>
+    <div class="tables-grid">
+      <div class="table-card fade-in">
+        <div class="table-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000" alt="Standard Table" class="table-img">
+          <div class="table-badge">Standard</div>
+        </div>
+        <div class="table-content">
+          <div class="table-info">
+            <span><i class="fas fa-users"></i> 2 Places</span>
+            <span><i class="fas fa-expand"></i> 15 m²</span>
           </div>
+          <h3>Cozy Dining</h3>
+          <p>Perfect for a quiet dinner for two.</p>
+          <div class="table-price">25,000 XAF</div>
+          <a href="#" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Réserver</a>
         </div>
       </div>
-      <div class="menu-card fade-in">
-        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981" alt="Truffle Pizza" class="menu-img">
-        <div class="menu-content">
-          <h3>Black Truffle Margherita</h3>
-          <p>Wood-fired crust, San Marzano tomatoes, fresh mozzarella, basil, and shaved black truffle.</p>
-          <div class="menu-actions">
-            <span class="menu-price">$22</span>
-            <a href="{{ url('/login') }}" class="btn btn-primary">Add to Order</a>
+      <div class="table-card fade-in">
+        <div class="table-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000" alt="Medium Class" class="table-img">
+          <div class="table-badge">Medium Class</div>
+        </div>
+        <div class="table-content">
+          <div class="table-info">
+            <span><i class="fas fa-users"></i> 4 Places</span>
+            <span><i class="fas fa-expand"></i> 25 m²</span>
           </div>
+          <h3>Family Style</h3>
+          <p>Spacious seating for groups and families.</p>
+          <div class="table-price">35,000 XAF</div>
+          <a href="#" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Réserver</a>
         </div>
       </div>
-      <div class="menu-card fade-in">
-        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=1978" alt="Chocolate Dessert" class="menu-img">
-        <div class="menu-content">
-          <h3>Valrhona Chocolate Fondant</h3>
-          <p>Warm dark chocolate cake with a molten center, served with vanilla bean ice cream.</p>
-          <div class="menu-actions">
-            <span class="menu-price">$14</span>
-            <a href="{{ url('/login') }}" class="btn btn-primary">Add to Order</a>
+      <div class="table-card fade-in">
+        <div class="table-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=1000" alt="First Class" class="table-img">
+          <div class="table-badge">First Class</div>
+        </div>
+        <div class="table-content">
+          <div class="table-info">
+            <span><i class="fas fa-users"></i> 6 Places</span>
+            <span><i class="fas fa-expand"></i> 40 m²</span>
           </div>
+          <h3>VIP Experience</h3>
+          <p>Exclusive dining with panoramic views.</p>
+          <div class="table-price">50,000 XAF</div>
+          <a href="#" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Réserver</a>
         </div>
       </div>
-    </div>
-    <div style="text-align: center; margin-top: 3rem;">
-      <a href="#" class="btn btn-outline btn-large">View Full Menu</a>
     </div>
   </section>
 
-  <!-- Experience/Why Dine -->
-  <section class="experience" id="experience">
+  <!-- Services Section -->
+  <section id="services" style="background: var(--white);">
     <div class="section-header fade-in">
-      <span class="section-subtitle" style="color: var(--accent)">The Lumière Experience</span>
-      <h2 class="section-title">Why Guests Keep Coming Back</h2>
-      <p class="section-desc">More than a meal—it's how we make you feel.</p>
+      <span class="section-subtitle">Our Services</span>
+      <h2 class="section-title">Gourmet Selection</h2>
+      <p class="section-desc">Discover our range of culinary delights and refreshing beverages.</p>
     </div>
-    <div class="exp-grid">
-      <div class="exp-card fade-in">
-        <div class="exp-icon"><i class="fas fa-utensils"></i></div>
-        <h3>Seasonal Menus</h3>
-        <p>Our chefs rotate dishes monthly to highlight the freshest local ingredients and global inspirations.</p>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <i class="fas fa-utensils"></i>
+        <h3>Authentic Plates</h3>
+        <p>From local Cameroonian delicacies to international gourmet dishes.</p>
       </div>
-      <div class="exp-card fade-in">
-        <div class="exp-icon"><i class="fas fa-clock"></i></div>
-        <h3>Fast & Reliable Ordering</h3>
-        <p>Order ahead for pickup or delivery. Your food arrives hot, fresh, and exactly as you like it.</p>
+      <div class="service-card fade-in">
+        <i class="fas fa-glass-martini-alt"></i>
+        <h3>Premium Drinks</h3>
+        <p>A curated selection of wines, cocktails, and fresh beverages.</p>
       </div>
-      <div class="exp-card fade-in">
-        <div class="exp-icon"><i class="fas fa-star"></i></div>
-        <h3>Reward Every Visit</h3>
-        <p>Earn points with every order. Redeem for free dishes, exclusive tastings, or private dining perks.</p>
+    </div>
+
+    <!-- Aperçu du Menu -->
+    <div class="section-header fade-in" style="margin-top: 5rem; margin-bottom: 3rem;">
+      <span class="section-subtitle">Aperçu du Menu</span>
+      <h3>Chef's Selection</h3>
+    </div>
+    <div class="menu-items-grid fade-in" style="max-width: 1200px; margin: 0 auto;">
+      <div class="menu-item-card">
+        <div class="menu-item-header">
+          <h4>Spaghetti bolognaise</h4>
+          <span class="menu-item-price">5,000 FCFA</span>
+        </div>
+        <p class="menu-item-desc">Sauce tomate, viande hachée, parmesan</p>
+        <div class="menu-item-actions">
+          <input type="number" min="1" value="1" class="qty-input" id="qty-apercu-0">
+          <button class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 10px;" onclick="addToCart('Spaghetti bolognaise', 5000, 'apercu', 0)">Ajouter</button>
+        </div>
       </div>
-      <div class="exp-card fade-in">
-        <div class="exp-icon"><i class="fas fa-shield-alt"></i></div>
-        <h3>Safe & Secure Accounts</h3>
-        <p>Save your favorites, track orders, manage reservations, and enjoy a personalized dining journey.</p>
+      <div class="menu-item-card">
+        <div class="menu-item-header">
+          <h4>Poulet DG</h4>
+          <span class="menu-item-price">7,000 FCFA</span>
+        </div>
+        <p class="menu-item-desc">Poulet, plantain, légumes sautés</p>
+        <div class="menu-item-actions">
+          <input type="number" min="1" value="1" class="qty-input" id="qty-apercu-1">
+          <button class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 10px;" onclick="addToCart('Poulet DG', 7000, 'apercu', 1)">Ajouter</button>
+        </div>
       </div>
+      <div class="menu-item-card">
+        <div class="menu-item-header">
+          <h4>Guinness Large</h4>
+          <span class="menu-item-price">2,000 FCFA</span>
+        </div>
+        <p class="menu-item-desc">Stout iconique 65cl</p>
+        <div class="menu-item-actions">
+          <input type="number" min="1" value="1" class="qty-input" id="qty-apercu-2">
+          <button class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 10px;" onclick="addToCart('Guinness Large', 2000, 'apercu', 2)">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 4rem;">
+      <a href="javascript:void(0)" onclick="openMenu()" class="btn btn-outline" style="padding: 1.2rem 3rem; font-size: 1.1rem;">View Full Menu</a>
     </div>
   </section>
 
-  <!-- Customer Reviews -->
-  <section class="reviews" id="reviews">
+  <!-- Gallery Section -->
+  <section id="gallery">
     <div class="section-header fade-in">
-      <span class="section-subtitle">Guest Voices</span>
-      <h2 class="section-title">What Our Diners Say</h2>
-      <p class="section-desc">Real experiences from our valued guests.</p>
+      <span class="section-subtitle">Gallery</span>
+      <h2 class="section-title">A Glimpse of Millenium</h2>
     </div>
-    <div class="reviews-grid">
-      <div class="review-card fade-in">
-        <div class="stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="review-text">"Absolutely stunning ambiance and the truffle risotto was divine. The online ordering made pickup seamless. Will definitely be back!"</p>
-        <div class="review-author">
-          <div class="author-avatar">EL</div>
-          <div class="author-info">
-            <h4>Elena Lopez</h4>
-            <p>Verified Diner</p>
-          </div>
-        </div>
-      </div>
-      <div class="review-card fade-in">
-        <div class="stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-        <p class="review-text">"Joined the rewards program last month and already earned a free dessert. The staff remembers my name and usual table. Feels like home."</p>
-        <div class="review-author">
-          <div class="author-avatar">MK</div>
-          <div class="author-info">
-            <h4>Michael Kim</h4>
-            <p>Loyalty Member</p>
-          </div>
-        </div>
-      </div>
-      <div class="review-card fade-in">
-        <div class="stars">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-        </div>
-        <p class="review-text">"Perfect date night spot. The reservation system was easy, the wine pairing was spot on, and the chocolate fondant was unforgettable."</p>
-        <div class="review-author">
-          <div class="author-avatar">SJ</div>
-          <div class="author-info">
-            <h4>Sarah & James</h4>
-            <p>Weekend Guests</p>
-          </div>
-        </div>
-      </div>
+    <div class="gallery-grid fade-in">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552566626-52f8b828b5ad?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
     </div>
   </section>
 
-  <!-- Location & Hours -->
-  <section class="location" id="location">
+  <!-- Location Section -->
+  <section id="location" class="location">
     <div class="location-grid">
-      <div class="map-placeholder fade-in">
-        <i class="fas fa-map-marked-alt fa-3x" style="margin-right: 1rem;"></i>
-        Interactive Map Loads Here
+      <div class="map-frame fade-in">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.704771694034!2d11.49132177579177!3d3.830491948831093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x108bcf4649f8750d%3A0xe549f88417c469b!2sHotel%20la%20Dibamba!5e0!3m2!1sen!2scm!4v1715620000000!5m2!1sen!2scm" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
       <div class="info-block fade-in">
         <span class="section-subtitle">Visit Us</span>
         <h3>Find Your Table</h3>
-        <div class="info-row"><span class="info-label">Address</span><span class="info-value">124 Culinary Ave, Downtown</span></div>
-        <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(555) 123-4567</span></div>
-        <div class="info-row"><span class="info-label">Email</span><span class="info-value">hello@lumiere.com</span></div>
-        <div class="info-row"><span class="info-label">Mon - Thu</span><span class="info-value">11:00 AM - 9:00 PM</span></div>
-        <div class="info-row"><span class="info-label">Fri - Sat</span><span class="info-value">11:00 AM - 11:00 PM</span></div>
-        <div class="info-row"><span class="info-label">Sunday</span><span class="info-value">10:00 AM - 8:00 PM</span></div>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-          <a href="register.html" class="btn btn-primary">Book a Table</a>
-          <a href="login.html" class="btn btn-outline">Track My Order</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Auth CTA -->
-  <section class="auth-cta">
-    <div class="auth-content fade-in">
-      <h2>Join Our Dining Family</h2>
-      <p>Create a free account to unlock exclusive perks: faster checkout, personalized recommendations, loyalty points, and early access to seasonal menus.</p>
-      <div class="auth-buttons-large">
-        <a href="register.html" class="btn btn-accent"><i class="fas fa-user-plus"></i> Create Free Account</a>
-        <a href="login.html" class="btn btn-outline" style="border-color: #fff; color: #fff;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        <div class="info-row"><span class="info-label">Address</span><span class="info-value">Damas, Yaoundé</span></div>
+        <div class="info-row"><span class="info-label">Phone</span><span class="info-value">+237 6XX XX XX XX</span></div>
+        <div class="info-row"><span class="info-label">Mon - Sun</span><span class="info-value">11:00 AM - 11:00 PM</span></div>
+        <a href="#reserve" class="btn btn-primary" style="margin-top: 2rem; width: 100%;">Book a Table</a>
       </div>
     </div>
   </section>
@@ -408,20 +401,19 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
-        <a href="#" class="logo" style="margin-bottom: 1.5rem; display: inline-block;">Lumi<span>ère</span></a>
+        <a href="#" class="logo" style="margin-bottom: 1.5rem; display: inline-block;">Mille<span>nium</span></a>
         <p>Crafting unforgettable dining experiences since 2018. Fresh ingredients, bold flavors, and warm hospitality.</p>
-        <div class="socials">
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-tiktok"></i></a>
-          <a href="#"><i class="fab fa-yelp"></i></a>
         </div>
       </div>
       <div class="footer-col">
         <h4>Dining</h4>
         <ul>
-          <li><a href="#menu">Full Menu</a></li>
-          <li><a href="#">Reservations</a></li>
+          <li><a href="javascript:void(0)" onclick="openMenu()">Full Menu</a></li>
+          <li><a href="#reserve">Reservations</a></li>
           <li><a href="#">Order Online</a></li>
           <li><a href="#">Private Events</a></li>
         </ul>
@@ -429,8 +421,8 @@
       <div class="footer-col">
         <h4>Account</h4>
         <ul>
-          <li><a href="login.html">Sign In</a></li>
-          <li><a href="register.html">Join Rewards</a></li>
+          <li><a href="{{ url('/login') }}">Sign In</a></li>
+          <li><a href="{{ url('/register') }}">Join Rewards</a></li>
           <li><a href="#">Order History</a></li>
           <li><a href="#">Saved Favorites</a></li>
         </ul>
@@ -438,72 +430,199 @@
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
-          <li><a href="#">Contact Us</a></li>
+          <li><a href="#location">Contact Us</a></li>
           <li><a href="#">Allergy Info</a></li>
           <li><a href="#">Careers</a></li>
           <li><a href="#">Privacy & Terms</a></li>
         </ul>
       </div>
     </div>
-    <div class="copyright">
-      &copy; <span id="year"></span> Lumière Restaurant. All rights reserved. Designed for guests, crafted with care.
+    <div style="text-align: center; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+      &copy; <span id="year"></span> Millenium. All rights reserved.
     </div>
   </footer>
 
+  <!-- Full Menu Modal -->
+  <div class="modal" id="menuModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Menu Complet & Commande</h2>
+        <span class="modal-close" onclick="closeMenu()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="menu-tabs">
+          <div class="menu-tab active" onclick="switchMenuTab('plats')">Plats & Repas</div>
+          <div class="menu-tab" onclick="switchMenuTab('boissons')">Boissons</div>
+          <div class="menu-tab" onclick="switchMenuTab('panier')" id="basketTab">Mon Panier (<span id="cartCountHeader">0</span>)</div>
+        </div>
+        
+        <div id="platsPane" class="menu-pane">
+          <div class="menu-items-grid" id="platsItems">
+            <!-- Dynamically loaded -->
+          </div>
+        </div>
+        <div id="boissonsPane" class="menu-pane" style="display:none;">
+          <div class="menu-items-grid" id="boissonsItems">
+            <!-- Dynamically loaded -->
+          </div>
+        </div>
+        <div id="panierPane" class="menu-pane" style="display:none;">
+          <div id="basketList" style="max-width: 600px; margin: 0 auto;">
+            <!-- Cart items here -->
+          </div>
+        </div>
+      </div>
+      <div class="cart-summary">
+        <span>Items: <span id="cartCount">0</span></span>
+        <span style="font-size: 1.4rem; font-weight: 700;">Total: <span id="cartTotal">0</span> FCFA</span>
+        <button class="btn btn-accent" style="padding: 0.8rem 2rem;" onclick="switchMenuTab('panier')">Voir Panier</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Mobile Menu
+    // Navigation toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      const icon = menuToggle.querySelector('i');
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
-    });
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuToggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
-      });
-    });
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
 
     // Carousel
     const slides = document.querySelectorAll('.carousel-slide');
     const indicators = document.querySelectorAll('.indicator');
     let currentSlide = 0;
-    const slideInterval = 3000;
-    function goToSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        indicators[i].classList.remove('active');
-        if (i === index) { slide.classList.add('active'); indicators[i].classList.add('active'); }
-      });
-      currentSlide = index;
-    }
-    let slideTimer = setInterval(() => goToSlide((currentSlide + 1) % slides.length), slideInterval);
-    indicators.forEach((ind, i) => {
-      ind.addEventListener('click', () => {
-        clearInterval(slideTimer);
-        goToSlide(i);
-        slideTimer = setInterval(() => goToSlide((currentSlide + 1) % slides.length), slideInterval);
-      });
-    });
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      indicators[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+      indicators[currentSlide].classList.add('active');
+    }, 4000);
 
     // Scroll Animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Dynamic Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Modal & Cart Logic
+    const plats = [
+      { name: 'Petit déjeuner simple', desc: '2 oeufs, pain, boisson chaude, beurre', price: 2000 },
+      { name: 'Petit déjeuner continental', desc: '2 oeufs, sardine ou saucisse, pain, beurre', price: 3500 },
+      { name: 'Petit déjeuner complet', desc: '2 oeufs, sardine, saucisse, pain, beurre', price: 3000 },
+      { name: 'Spaghetti bolognaise', desc: 'Sauce tomate, viande hachée, parmesan', price: 5000 },
+      { name: 'Poulet DG', desc: 'Poulet, plantain, légumes sautés', price: 7000 }
+    ];
+    const boissons = [
+      { name: 'Isembeck', desc: 'Bière locale blonde', price: 1500 },
+      { name: 'Guinness Small', desc: 'Stout iconique 33cl', price: 1500 },
+      { name: 'Guinness Large', desc: 'Stout iconique 65cl', price: 2000 },
+      { name: 'Coca Cola', desc: 'Rafraîchissement gazeux', price: 1000 },
+      { name: 'Eau Minérale', desc: 'Source naturelle 1.5L', price: 800 }
+    ];
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('.navbar');
-      nav.style.padding = window.scrollY > 50 ? '0.7rem 5%' : '1rem 5%';
-      nav.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'none';
-    });
+    let cart = [];
+
+    function openMenu() {
+      document.getElementById('menuModal').style.display = 'flex';
+      renderMenu();
+    }
+    function closeMenu() {
+      document.getElementById('menuModal').style.display = 'none';
+    }
+
+    function switchMenuTab(tab) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-pane').forEach(p => p.style.display = 'none');
+      
+      if (tab === 'plats') {
+        document.getElementById('platsPane').style.display = 'block';
+        document.querySelector('.menu-tab:nth-child(1)').classList.add('active');
+      } else if (tab === 'boissons') {
+        document.getElementById('boissonsPane').style.display = 'block';
+        document.querySelector('.menu-tab:nth-child(2)').classList.add('active');
+      } else {
+        document.getElementById('panierPane').style.display = 'block';
+        document.getElementById('basketTab').classList.add('active');
+        renderBasket();
+      }
+    }
+
+    function renderMenu() {
+      const platsGrid = document.getElementById('platsItems');
+      const boissonsGrid = document.getElementById('boissonsItems');
+      platsGrid.innerHTML = plats.map((item, idx) => createItemCard(item, 'plats', idx)).join('');
+      boissonsGrid.innerHTML = boissons.map((item, idx) => createItemCard(item, 'boissons', idx)).join('');
+    }
+
+    function createItemCard(item, type, idx) {
+      return `
+        <div class="menu-item-card">
+          <div class="menu-item-header">
+            <h4>${item.name}</h4>
+            <span class="menu-item-price">${item.price.toLocaleString()} FCFA</span>
+          </div>
+          <p class="menu-item-desc">${item.desc}</p>
+          <div class="menu-item-actions">
+            <input type="number" min="1" value="1" class="qty-input" id="qty-${type}-${idx}">
+            <button class="btn btn-primary" style="padding: 0.5rem 1rem; border-radius: 10px;" onclick="addToCart('${item.name}', ${item.price}, '${type}', ${idx})">Ajouter</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function addToCart(name, price, type, idx) {
+      const qtyInput = document.getElementById(`qty-${type}-${idx}`);
+      const qty = parseInt(qtyInput.value);
+      
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ name, price, qty });
+      }
+      updateCart();
+      qtyInput.value = 1; // Reset input
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+      renderBasket();
+    }
+
+    function renderBasket() {
+      const basketList = document.getElementById('basketList');
+      if (cart.length === 0) {
+        basketList.innerHTML = '<p style="text-align:center; padding: 3rem;">Votre panier est vide.</p>';
+        return;
+      }
+      basketList.innerHTML = cart.map((item, index) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:1.5rem; border-radius:15px; margin-bottom:1rem; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+          <div>
+            <h4 style="margin:0;">${item.name}</h4>
+            <p style="margin:0; color:var(--text-light); font-size:0.9rem;">${item.qty} x ${item.price.toLocaleString()} FCFA</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:1.5rem;">
+            <strong style="color:var(--primary);">${(item.qty * item.price).toLocaleString()} FCFA</strong>
+            <i class="fas fa-trash-alt" style="color:#ff4444; cursor:pointer;" onclick="removeFromCart(${index})"></i>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateCart() {
+      let count = 0;
+      let total = 0;
+      cart.forEach(item => {
+        count += item.qty;
+        total += item.qty * item.price;
+      });
+      document.getElementById('cartCount').innerText = count;
+      document.getElementById('cartCountHeader').innerText = count;
+      document.getElementById('cartTotal').innerText = total.toLocaleString();
+    }
+
+    document.getElementById('year').innerText = new Date().getFullYear();
   </script>
 </body>
 </html>

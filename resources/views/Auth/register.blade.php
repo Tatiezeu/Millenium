@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account</title>
+  <title>Begin Your Journey | Millenium</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
 
     /* Left Side: Image */
     .auth-image {
-      flex: 1;
+      flex: 1.2;
       position: relative;
       background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070') center/cover no-repeat;
       display: flex;
@@ -50,7 +50,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(to top, rgba(106,18,42,0.85) 0%, rgba(0,0,0,0.2) 100%);
+      background: linear-gradient(to top, rgba(106,18,42,0.9) 0%, rgba(0,0,0,0.2) 100%);
     }
 
     .image-content {
@@ -61,33 +61,33 @@
     }
 
     .image-content h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 1rem;
       font-weight: 800;
     }
 
     .image-content p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       opacity: 0.9;
       line-height: 1.7;
+      margin-bottom: 2rem;
     }
 
     .image-perks {
-      margin-top: 2rem;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
     .perk {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      padding: 0.6rem 1.2rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 1.5rem;
       border-radius: 50px;
       font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.7rem;
       border: 1px solid rgba(255,255,255,0.2);
     }
 
@@ -105,12 +105,12 @@
 
     .form-wrapper {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       animation: fadeIn 0.8s ease-out;
     }
 
     .logo {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 800;
       color: var(--primary);
       font-family: 'Playfair Display', serif;
@@ -121,13 +121,22 @@
     .logo span { color: var(--accent); }
 
     .form-header h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
+      color: var(--primary);
     }
 
     .form-header p {
       color: var(--text-light);
       margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
     }
 
     .form-group {
@@ -135,11 +144,16 @@
       position: relative;
     }
 
+    .form-group.full-width { grid-column: span 2; }
+
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
-      font-weight: 500;
-      font-size: 0.95rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
     }
 
     .input-wrapper {
@@ -148,20 +162,20 @@
 
     .form-control {
       width: 100%;
-      padding: 0.9rem 1rem;
-      border: 2px solid #e2e2e2;
-      border-radius: 10px;
-      font-size: 1rem;
+      padding: 0.9rem 1.1rem;
+      border: 1.5px solid #EAEAEA;
+      border-radius: 12px;
+      font-size: 0.95rem;
       font-family: inherit;
       transition: var(--transition);
-      background: #fafafa;
+      background: #FDFDFD;
     }
 
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
       background: var(--white);
-      box-shadow: 0 0 0 4px rgba(139,28,58,0.1);
+      box-shadow: 0 0 0 4px rgba(139,28,58,0.05);
     }
 
     .form-control.error { border-color: var(--error); }
@@ -169,16 +183,17 @@
 
     .error-message {
       color: var(--error);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       margin-top: 0.4rem;
       display: none;
+      font-weight: 500;
     }
 
     .form-group.error .error-message { display: block; }
 
     .toggle-password {
       position: absolute;
-      right: 12px;
+      right: 15px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
@@ -208,52 +223,45 @@
       font-size: 0.9rem;
       color: var(--text-light);
       cursor: pointer;
+      line-height: 1.4;
     }
 
     .checkbox-group a {
       color: var(--primary);
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: underline;
     }
 
     .btn {
       width: 100%;
-      padding: 1rem;
+      padding: 1.1rem;
       border: none;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      font-weight: 600;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
       transition: var(--transition);
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: var(--primary);
       color: var(--white);
-      box-shadow: 0 4px 15px rgba(139,28,58,0.3);
+      box-shadow: 0 8px 25px rgba(139,28,58,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
 
     .btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139,28,58,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(139,28,58,0.35);
+      background: var(--primary-dark);
     }
 
-    .btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
+    .btn:disabled { opacity: 0.7; cursor: not-allowed; }
     .btn .spinner {
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top: 2px solid var(--white);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      display: none;
+      width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid var(--white); border-radius: 50%;
+      animation: spin 0.8s linear infinite; display: none;
     }
-
     .btn.loading .spinner { display: block; }
     .btn.loading .btn-text { display: none; }
 
@@ -261,51 +269,54 @@
       text-align: center;
       margin-top: 2rem;
       color: var(--text-light);
+      font-size: 1rem;
     }
 
     .login-link a {
       color: var(--primary);
-      font-weight: 600;
+      font-weight: 700;
       transition: var(--transition);
+      margin-left: 0.3rem;
     }
 
-    .login-link a:hover { color: var(--accent); }
+    .login-link a:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
 
-    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Responsive */
     @media (max-width: 992px) {
       .auth-image { display: none; }
       .auth-form-container { padding: 4rem 1.5rem; }
       .form-wrapper { max-width: 100%; }
     }
 
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; gap: 0; }
+      .form-group.full-width { grid-column: span 1; }
+    }
+
     @media (max-width: 480px) {
-      .auth-form-container { padding: 2rem 1rem; }
-      .form-header h1 { font-size: 1.8rem; }
-      .form-control { padding: 0.8rem; }
+      .auth-form-container { padding: 2.5rem 1.2rem; }
+      .form-header h1 { font-size: 2rem; }
+      .form-control { padding: 0.8rem 1rem; }
     }
   </style>
 </head>
 <body>
 
   <div class="auth-container">
-    <!-- Left Side: Attractive Food Image -->
+    <!-- Left Side: Gastronomy Image -->
     <div class="auth-image">
       <div class="image-content">
-        <h2>Your Next Favorite Meal Awaits</h2>
-        <p>Join our community to unlock seamless reservations, personalized recommendations, and a rewards program that celebrates your palate.</p>
+        <h2>A Masterpiece on Every Plate.</h2>
+        <p>Join the Millenium elite. Experience seamless dining, bespoke rewards, and culinary excellence tailored to you.</p>
         <div class="image-perks">
-          <span class="perk"><i class="fas fa-calendar-check"></i> Skip the Wait</span>
-          <span class="perk"><i class="fas fa-star"></i> Earn Rewards</span>
-          <span class="perk"><i class="fas fa-gift"></i> Exclusive Offers</span>
-          <span class="perk"><i class="fas fa-utensils"></i> Save Favorites</span>
+          <span class="perk"><i class="fas fa-calendar-check"></i> Instant Booking</span>
+          <span class="perk"><i class="fas fa-star"></i> Loyalty Status</span>
+          <span class="perk"><i class="fas fa-gift"></i> VIP Invites</span>
         </div>
       </div>
     </div>
@@ -313,66 +324,69 @@
     <!-- Right Side: Registration Form -->
     <div class="auth-form-container">
       <div class="form-wrapper">
-        <a href="index.html" class="logo">Lumi<span>ère</span></a>
+        <a href="{{ url('/') }}" class="logo">Mille<span>nium</span></a>
         <div class="form-header">
           <h1>Create Account</h1>
-          <p>Start your culinary journey with us today.</p>
+          <p>Join our refined culinary community.</p>
         </div>
 
         <form id="registerForm" novalidate>
-          <div class="form-group">
+          <div class="form-group full-width">
             <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" class="form-control" placeholder="e.g. Jordan Smith" required>
+            <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
             <span class="error-message">Please enter your full name.</span>
           </div>
 
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
-            <span class="error-message">Please enter a valid email address.</span>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" class="form-control" placeholder="(555) 123-4567" required>
-            <span class="error-message">Please enter a valid phone number.</span>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div class="input-wrapper">
-              <input type="password" id="password" class="form-control" placeholder="Create a secure password" required>
-              <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-                <i class="far fa-eye"></i>
-              </button>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="you@email.com" required>
+              <span class="error-message">Valid email required.</span>
             </div>
-            <span class="error-message">Password must be at least 8 characters.</span>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" class="form-control" placeholder="+237 ..." required>
+              <span class="error-message">Phone is required.</span>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" class="form-control" placeholder="Repeat your password" required>
-            <span class="error-message">Passwords do not match.</span>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="password" class="form-control" placeholder="Min. 8 chars" required>
+                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <span class="error-message">Min. 8 characters.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm</label>
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Repeat password" required>
+              <span class="error-message">Passwords must match.</span>
+            </div>
           </div>
 
           <div class="checkbox-group">
             <input type="checkbox" id="terms" required>
-            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            <label for="terms">I accept the Millenium <a href="#">Terms of Excellence</a> and <a href="#">Privacy Commitment</a></label>
           </div>
 
           <button type="submit" class="btn" id="submitBtn">
             <span class="spinner"></span>
-            <span class="btn-text">Create Account</span>
+            <span class="btn-text">Begin Your Experience</span>
           </button>
         </form>
 
-        <p class="login-link">Already have an account? <a href="{{ url('/login') }}">Sign in here</a></p>
+        <p class="login-link">Already a member? <a href="{{ url('/login') }}">Sign In</a></p>
       </div>
     </div>
   </div>
 
   <script>
-    // Form Validation & Submission Simulation
     const form = document.getElementById('registerForm');
     const inputs = {
       fullName: document.getElementById('fullName'),
@@ -384,19 +398,18 @@
     };
     const submitBtn = document.getElementById('submitBtn');
 
-    // Validation Rules
     const validators = {
       fullName: (val) => val.trim().length >= 2,
       email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
-      phone: (val) => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(val),
+      phone: (val) => val.trim().length >= 8,
       password: (val) => val.length >= 8,
       confirmPassword: (val) => val === inputs.password.value && val.length > 0,
       terms: (checked) => checked
     };
 
-    function validateField(input, validatorKey) {
-      const group = input.closest('.form-group');
-      const isValid = validatorKey === 'terms' ? validators[validatorKey](input.checked) : validators[validatorKey](input.value);
+    function validateField(input, key) {
+      const group = input.closest('.form-group') || input.closest('.checkbox-group');
+      const isValid = key === 'terms' ? validators[key](input.checked) : validators[key](input.value);
       
       input.classList.remove('error', 'success');
       if (isValid) {
@@ -409,19 +422,13 @@
       return isValid;
     }
 
-    // Real-time validation on blur/input
     Object.keys(inputs).forEach(key => {
-      if (key === 'terms') {
-        inputs[key].addEventListener('change', () => validateField(inputs[key], key));
-      } else {
-        inputs[key].addEventListener('input', () => {
-          if (inputs[key].value) validateField(inputs[key], key);
-        });
-        inputs[key].addEventListener('blur', () => validateField(inputs[key], key));
-      }
+      inputs[key].addEventListener('input', () => {
+        if (inputs[key].value || key === 'terms') validateField(inputs[key], key);
+      });
+      inputs[key].addEventListener('blur', () => validateField(inputs[key], key));
     });
 
-    // Password Toggle
     document.querySelectorAll('.toggle-password').forEach(btn => {
       btn.addEventListener('click', () => {
         const input = btn.previousElementSibling;
@@ -431,7 +438,6 @@
       });
     });
 
-    // Form Submission
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       let allValid = true;
@@ -441,20 +447,18 @@
 
       if (!allValid) return;
 
-      // Simulate loading
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
 
+      // Simulate registration
       setTimeout(() => {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
-        submitBtn.querySelector('.btn-text').textContent = 'Account Created!';
+        submitBtn.querySelector('.btn-text').textContent = 'Welcome to Millenium!';
         submitBtn.style.background = 'var(--success)';
+        submitBtn.style.boxShadow = '0 8px 25px rgba(56, 161, 105, 0.3)';
         
-        // Redirect simulation
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1500);
+        setTimeout(() => window.location.href = '/login', 1500);
       }, 2000);
     });
   </script>
