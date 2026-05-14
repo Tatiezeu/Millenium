@@ -9,11 +9,11 @@
     isViewModalOpen: false, 
     selectedReservation: null,
     confirmReservation(id) {
-        alert('Reservation ' + id + ' confirmed successfully!');
+        $dispatch('toast', { message: 'Reservation #' + id + ' confirmed!', type: 'success' });
     },
     declineReservation(id) {
         if(confirm('Are you sure you want to decline this reservation?')) {
-            alert('Reservation ' + id + ' declined.');
+            $dispatch('toast', { message: 'Reservation declined', type: 'error' });
         }
     },
     viewReservation(res) {

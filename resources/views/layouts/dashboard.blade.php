@@ -22,7 +22,18 @@
         .sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     </style>
 </head>
-<body class="bg-gray-50" x-data="{ showNotifications: false, currentPage: '{{ Request::path() }}' }">
+<body class="bg-gray-50" x-data="{ 
+    showNotifications: false, 
+    currentPage: '{{ Request::path() }}',
+    toasts: [],
+    showToast(message, type = 'success') {
+        const id = Date.now();
+        this.toasts.push({ id, message, type });
+        setTimeout(() => {
+            this.toasts = this.toasts.filter(t => t.id !== id);
+        }, 2000);
+    }
+}" @toast.window="showToast($event.detail.message, $event.detail.type)">
 
     <div class="flex h-screen overflow-hidden">
         
@@ -217,9 +228,38 @@
 
     </div>
 
+    <!-- Toast Notifications Container -->
+    <div class="fixed bottom-6 right-6 z-[200] space-y-3">
+        <template x-for="toast in toasts" :key="toast.id">
+            <div x-show="true" 
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="flex items-center space-x-3 px-6 py-4 rounded-2xl shadow-2xl border backdrop-blur-md"
+                 :class="{
+                     'bg-green-500/90 border-green-400 text-white': toast.type === 'success',
+                     'bg-red-500/90 border-red-400 text-white': toast.type === 'error',
+                     'bg-[#8B1C3A]/90 border-[#ffd700]/30 text-white': toast.type === 'info'
+                 }">
+                <div class="p-1 bg-white/20 rounded-lg">
+                    <i :data-lucide="toast.type === 'success' ? 'check-circle' : (toast.type === 'error' ? 'alert-circle' : 'info')" class="w-5 h-5 text-white"></i>
+                </div>
+                <p class="text-sm font-bold" x-text="toast.message"></p>
+            </div>
+        </template>
+    </div>
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Ensure icons are updated when toasts are added
+        window.addEventListener('toast', () => {
+            setTimeout(() => lucide.createIcons(), 10);
+        });
     </script>
 </body>
 </html>

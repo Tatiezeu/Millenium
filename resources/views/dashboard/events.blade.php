@@ -7,10 +7,23 @@
 <div class="space-y-6" x-data="{ 
     isAddDialogOpen: false,
     isViewDialogOpen: false,
+    isEditDialogOpen: false,
     selectedEvent: null,
     viewEvent(event) {
         this.selectedEvent = event;
         this.isViewDialogOpen = true;
+    },
+    editEvent(event) {
+        this.selectedEvent = { ...event };
+        this.isEditDialogOpen = true;
+    },
+    saveEvent() {
+        this.isEditDialogOpen = false;
+        $dispatch('toast', { message: 'Event updated successfully!', type: 'success' });
+    },
+    createEvent() {
+        this.isAddDialogOpen = false;
+        $dispatch('toast', { message: 'New event created successfully!', type: 'success' });
     }
 }">
     <div class="flex justify-between items-center">
@@ -66,7 +79,7 @@
                 </div>
 
                 <div class="flex space-x-3 mt-6 pt-6 border-t border-gray-50">
-                    <button class="flex-1 py-2.5 border-2 border-gray-100 text-gray-500 text-sm font-bold rounded-xl hover:bg-gray-50 transition-colors">
+                    <button @click="editEvent({{ json_encode($event) }})" class="flex-1 py-2.5 border-2 border-gray-100 text-gray-500 text-sm font-bold rounded-xl hover:bg-gray-50 transition-colors">
                         Edit Event
                     </button>
                     <button @click="viewEvent({{ json_encode($event) }})" class="flex-1 py-2.5 bg-[#8B1C3A] text-white text-sm font-bold rounded-xl hover:bg-[#a01c3a] transition-all active:scale-95 shadow-lg shadow-[#8B1C3A]/10">
@@ -138,7 +151,7 @@
 
                 <div class="p-8 border-t border-gray-100 bg-gray-50/50 flex justify-end space-x-3">
                     <button @click="isViewDialogOpen = false" class="px-8 py-3 border-2 border-gray-200 text-gray-500 font-bold rounded-xl hover:bg-gray-100 transition-all">Close</button>
-                    <button class="px-8 py-3 bg-[#8B1C3A] text-white font-bold rounded-xl hover:bg-[#a01c3a] transition-all shadow-lg shadow-[#8B1C3A]/20">Manage Guests</button>
+                    <button @click="isViewDialogOpen = false; editEvent(selectedEvent)" class="px-8 py-3 bg-[#8B1C3A] text-white font-bold rounded-xl hover:bg-[#a01c3a] transition-all shadow-lg shadow-[#8B1C3A]/20">Edit Event</button>
                 </div>
             </div>
         </div>
@@ -152,7 +165,7 @@
                 <h2 class="text-xl font-bold text-gray-900">Add New Event</h2>
                 <button @click="isAddDialogOpen = false"><i data-lucide="x" class="w-6 h-6 text-gray-400"></i></button>
             </div>
-            <form class="p-6 space-y-4">
+            <form @submit.prevent="createEvent()" class="p-6 space-y-4">
                 <div class="space-y-1">
                     <label class="text-sm font-semibold text-gray-700">Event Title</label>
                     <input type="text" placeholder="e.g. Wine Tasting" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
@@ -194,6 +207,60 @@
             </form>
         </div>
     </div>
+
+    <!-- Edit Event Modal -->
+    <template x-if="selectedEvent">
+        <div x-show="isEditDialogOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-6" x-cloak>
+            <div @click="isEditDialogOpen = false" class="fixed inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"></div>
+            <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden animate-zoom-in">
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-gray-900">Edit Event</h2>
+                    <button @click="isEditDialogOpen = false"><i data-lucide="x" class="w-6 h-6 text-gray-400"></i></button>
+                </div>
+                <form @submit.prevent="saveEvent()" class="p-6 space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-sm font-semibold text-gray-700">Event Title</label>
+                        <input type="text" x-model="selectedEvent.title" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Date</label>
+                            <input type="date" x-model="selectedEvent.date" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Time</label>
+                            <input type="time" x-model="selectedEvent.time" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-sm font-semibold text-gray-700">Location</label>
+                        <input type="text" x-model="selectedEvent.location" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Max Capacity</label>
+                            <input type="number" x-model="selectedEvent.max" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Status</label>
+                            <select x-model="selectedEvent.status" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none appearance-none">
+                                <option>Upcoming</option>
+                                <option>Confirmed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-sm font-semibold text-gray-700">Description</label>
+                        <textarea rows="3" x-model="selectedEvent.desc" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none"></textarea>
+                    </div>
+                    <div class="flex justify-end pt-4 space-x-3">
+                        <button type="button" @click="isEditDialogOpen = false" class="px-6 py-2.5 text-gray-500 font-bold hover:bg-gray-50 rounded-xl transition-all">Cancel</button>
+                        <button type="submit" class="px-6 py-2.5 bg-[#8B1C3A] text-white font-bold rounded-xl hover:bg-[#a01c3a] transition-all shadow-lg shadow-[#8B1C3A]/20">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
 </div>
 
 <style>
