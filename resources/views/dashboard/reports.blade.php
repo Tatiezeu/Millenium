@@ -31,10 +31,10 @@
                 <i data-lucide="calendar" class="h-4 w-4 mr-2 text-gray-400"></i>
                 Custom Range
             </button>
-            <button @click="generateReport()" class="bg-[#8B1C3A] text-white px-4 py-2 rounded-lg hover:bg-[#a01c3a] transition-colors flex items-center text-sm font-medium shadow-lg shadow-[#8B1C3A]/20">
-                <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
-                Generate Report
-            </button>
+            <a href="{{ route('reports.print') }}" target="_blank" class="bg-[#8B1C3A] text-white px-6 py-2.5 rounded-xl hover:bg-[#a01c3a] transition-all flex items-center text-sm font-bold shadow-lg shadow-[#8B1C3A]/20">
+                <i data-lucide="printer" class="h-4 w-4 mr-2"></i>
+                PRINT REPORT (PDF)
+            </a>
         </div>
     </div>
 
@@ -42,10 +42,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         @php
             $reportStats = [
-                ['title' => 'Gross Revenue', 'value' => '245,000 FCFA', 'trend' => '+12.5%', 'trend_up' => true, 'icon' => 'dollar-sign', 'color' => 'text-green-600', 'bg' => 'bg-green-50'],
-                ['title' => 'Net Profit', 'value' => '182,500 FCFA', 'trend' => '+8.2%', 'trend_up' => true, 'icon' => 'trending-up', 'color' => 'text-[#8B1C3A]', 'bg' => 'bg-red-50'],
-                ['title' => 'Total Orders', 'value' => '42', 'trend' => '+15.3%', 'trend_up' => true, 'icon' => 'shopping-bag', 'color' => 'text-blue-600', 'bg' => 'bg-blue-50'],
-                ['title' => 'Avg Order Value', 'value' => '5,833 FCFA', 'trend' => '-2.1%', 'trend_up' => false, 'icon' => 'user', 'color' => 'text-purple-600', 'bg' => 'bg-purple-50'],
+                ['title' => 'Gross Revenue', 'value' => number_format($totalSales) . ' FCFA', 'trend' => '+12.5%', 'trend_up' => true, 'icon' => 'dollar-sign', 'color' => 'text-green-600', 'bg' => 'bg-green-50'],
+                ['title' => 'Total Orders', 'value' => $totalOrders, 'trend' => '+15.3%', 'trend_up' => true, 'icon' => 'shopping-bag', 'color' => 'text-blue-600', 'bg' => 'bg-blue-50'],
+                ['title' => 'Registered Clients', 'value' => $totalCustomers, 'trend' => '+8.2%', 'trend_up' => true, 'icon' => 'users', 'color' => 'text-[#8B1C3A]', 'bg' => 'bg-red-50'],
+                ['title' => 'Reservations', 'value' => $totalReservations, 'trend' => '+5.1%', 'trend_up' => true, 'icon' => 'calendar', 'color' => 'text-purple-600', 'bg' => 'bg-purple-50'],
             ];
         @endphp
 
@@ -132,27 +132,19 @@
             </div>
             <div class="p-6">
                 <div class="space-y-4">
-                    @php
-                        $reports = [
-                            ['title' => 'Daily Sales Report', 'date' => 'May 13, 2026', 'type' => 'Sales', 'icon' => 'receipt', 'summary' => 'Comprehensive breakdown of all transactions today.'],
-                            ['title' => 'Staff Performance', 'date' => 'May 12, 2026', 'type' => 'HR', 'icon' => 'users', 'summary' => 'Evaluation of staff efficiency and service ratings.'],
-                            ['title' => 'Inventory Audit', 'date' => 'May 10, 2026', 'type' => 'Stock', 'icon' => 'package', 'summary' => 'Current stock levels vs minimum requirements.'],
-                        ];
-                    @endphp
-
-                    @foreach($reports as $report)
+                    @forelse($reports as $report)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer group">
                             <div @click="viewReport({{ json_encode($report) }})" class="flex items-center space-x-4 flex-1">
                                 <div class="bg-white p-2 rounded-lg border border-gray-100 group-hover:border-[#8B1C3A]/20 transition-colors">
-                                    <i data-lucide="{{ $report['icon'] }}" class="h-5 w-5 text-[#8B1C3A]"></i>
+                                    <i data-lucide="file-text" class="h-5 w-5 text-[#8B1C3A]"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-sm font-bold text-gray-900">{{ $report['title'] }}</h4>
-                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ $report['date'] }} • {{ $report['type'] }}</p>
+                                    <h4 class="text-sm font-bold text-gray-900">{{ $report->title }}</h4>
+                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ $report->created_at->format('M d, Y') }} • {{ $report->type }}</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <button @click="downloadPDF('{{ $report['title'] }}')" class="p-2 text-gray-400 hover:text-[#8B1C3A] transition-colors">
+                                <button @click="downloadPDF('{{ $report->title }}')" class="p-2 text-gray-400 hover:text-[#8B1C3A] transition-colors">
                                     <i data-lucide="download" class="h-4 w-4"></i>
                                 </button>
                                 <button @click="viewReport({{ json_encode($report) }})" class="p-2 text-gray-400 hover:text-gray-900 transition-colors">
@@ -160,7 +152,11 @@
                                 </button>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="text-center py-10">
+                            <p class="text-xs text-gray-400">No generated reports yet.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

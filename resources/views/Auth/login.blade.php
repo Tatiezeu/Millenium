@@ -346,10 +346,46 @@
       .social-btns { gap: 0.8rem; }
     }
   </style>
+  <!-- Alpine.js for interactive components -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Utility styles for interactive elements */
+    [x-cloak] { display: none !important; }
+  </style>
 </head>
-<body>
+<body x-data="{ 
+    toasts: [],
+    /**
+     * Display a toast notification
+     */
+    showToast(message, type = 'success') {
+        const id = Date.now();
+        this.toasts.push({ id, message, type });
+        this.$nextTick(() => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+        setTimeout(() => {
+            this.toasts = this.toasts.filter(t => t.id !== id);
+        }, 4000);
+    },
+    /**
+     * Initialize and check for registration success messages
+     */
+    init() {
+        @if(session('success'))
+            this.showToast('{{ session('success') }}', 'success');
+        @endif
+        @if(session('error'))
+            this.showToast('{{ session('error') }}', 'error');
+        @endif
+    }
+}">
 
   <div class="auth-container">
+    <!-- ... existing auth container content ... -->
     <!-- Left Side: Atmosphere Image -->
     <div class="auth-image">
       <div class="image-content">
@@ -372,27 +408,29 @@
           <p>Sign in to continue your journey.</p>
         </div>
 
-        <form id="loginForm" novalidate>
+        <!-- Real Authentication Form -->
+        <form id="loginForm" action="{{ url('/login') }}" method="POST">
+          @csrf
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" class="form-control" placeholder="name@email.com" required>
-            <span class="error-message">A valid email address is required.</span>
+            <input type="email" id="email" name="email" class="form-control" placeholder="name@email.com" value="{{ old('email') }}" required>
+            @error('email') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
             <div class="input-wrapper">
-              <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
               <button type="button" class="toggle-password" aria-label="Toggle password visibility">
                 <i class="far fa-eye"></i>
               </button>
             </div>
-            <span class="error-message">Password must be at least 8 characters.</span>
+            @error('password') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
           </div>
 
           <div class="form-options">
             <label class="checkbox-label">
-              <input type="checkbox" id="remember"> Remember me
+              <input type="checkbox" id="remember" name="remember"> Remember me
             </label>
             <a href="#" class="forgot-link">Forgot password?</a>
           </div>
@@ -405,6 +443,7 @@
 
         <div class="divider"><span>or access via</span></div>
 
+        <!-- Social Login Options (Mock) -->
         <div class="social-btns">
           <button class="social-btn" aria-label="Login with Google"><i class="fab fa-google"></i></button>
           <button class="social-btn" aria-label="Login with Apple"><i class="fab fa-apple"></i></button>
@@ -416,7 +455,33 @@
     </div>
   </div>
 
+  <!-- Toast Notifications (Floating) -->
+  <div class="fixed bottom-6 right-6 z-[200] space-y-3">
+    <template x-for="toast in toasts" :key="toast.id">
+      <div x-show="true" 
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+           x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 scale-100"
+           x-transition:leave-end="opacity-0 scale-95"
+           class="flex items-center space-x-3 px-6 py-4 rounded-2xl shadow-2xl border backdrop-blur-md bg-white/90"
+           :class="{
+               'bg-green-500/90 border-green-400 text-white': toast.type === 'success',
+               'bg-red-500/90 border-red-400 text-white': toast.type === 'error'
+           }">
+        <div class="p-1 bg-white/20 rounded-lg">
+          <i :data-lucide="toast.type === 'success' ? 'check-circle' : 'alert-circle'" class="w-5 h-5 text-white"></i>
+        </div>
+        <p class="text-sm font-bold" x-text="toast.message"></p>
+      </div>
+    </template>
+  </div>
+
   <script>
+    /**
+     * Frontend Validation and Form Submission logic
+     */
     const form = document.getElementById('loginForm');
     const inputs = {
       email: document.getElementById('email'),
@@ -424,11 +489,15 @@
     };
     const submitBtn = document.getElementById('loginBtn');
 
+    // Validation rules
     const validators = {
       email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
       password: (val) => val.trim().length >= 8
     };
 
+    /**
+     * Validate a specific input field
+     */
     function validateField(input, key) {
       const group = input.closest('.form-group');
       const isValid = validators[key](input.value);
@@ -444,6 +513,7 @@
       return isValid;
     }
 
+    // Attach listeners to all inputs
     Object.keys(inputs).forEach(key => {
       inputs[key].addEventListener('input', () => {
         if (inputs[key].value) validateField(inputs[key], key);
@@ -451,6 +521,7 @@
       inputs[key].addEventListener('blur', () => validateField(inputs[key], key));
     });
 
+    // Toggle password visibility
     document.querySelector('.toggle-password').addEventListener('click', function() {
       const pwd = document.getElementById('password');
       const type = pwd.type === 'password' ? 'text' : 'password';
@@ -458,26 +529,24 @@
       this.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
     });
 
+    // Handle form submission
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
       let valid = true;
       Object.keys(inputs).forEach(key => { if (!validateField(inputs[key], key)) valid = false; });
 
-      if (!valid) return;
+      if (!valid) {
+        e.preventDefault();
+        return;
+      }
 
+      // Show loading state
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
+    });
 
-      // Simulate Authentication
-      setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        submitBtn.querySelector('.btn-text').textContent = 'Welcome Back!';
-        submitBtn.style.background = 'var(--success)';
-        submitBtn.style.boxShadow = '0 8px 25px rgba(56, 161, 105, 0.3)';
-        
-        setTimeout(() => window.location.href = '/dashboard', 1000);
-      }, 1500);
+    // Initialize icons
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     });
   </script>
 </body>

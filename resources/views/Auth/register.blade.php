@@ -304,8 +304,43 @@
       .form-control { padding: 0.8rem 1rem; }
     }
   </style>
+  <!-- Alpine.js for interactive components -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Utility styles for interactive elements */
+    [x-cloak] { display: none !important; }
+  </style>
 </head>
-<body>
+<body x-data="{ 
+    toasts: [],
+    /**
+     * Display a toast notification
+     */
+    showToast(message, type = 'success') {
+        const id = Date.now();
+        this.toasts.push({ id, message, type });
+        this.$nextTick(() => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+        setTimeout(() => {
+            this.toasts = this.toasts.filter(t => t.id !== id);
+        }, 4000);
+    },
+    /**
+     * Initialize and check for session flash messages
+     */
+    init() {
+        @if(session('success'))
+            this.showToast('{{ session('success') }}', 'success');
+        @endif
+        @if(session('error'))
+            this.showToast('{{ session('error') }}', 'error');
+        @endif
+    }
+}">
 
   <div class="auth-container">
     <!-- Left Side: Gastronomy Image -->
@@ -330,24 +365,31 @@
           <p>Join our refined culinary community.</p>
         </div>
 
-        <form id="registerForm" novalidate>
+        <!-- Registration Form with File Upload Support -->
+        <form id="registerForm" action="{{ url('/register') }}" method="POST" enctype="multipart/form-data">
+          @csrf
           <div class="form-group full-width">
             <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
-            <span class="error-message">Please enter your full name.</span>
+            <input type="text" id="fullName" name="name" class="form-control" placeholder="Enter your full name" value="{{ old('name') }}" required>
+            @error('name') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
+          </div>
+
+          <div class="form-group full-width">
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" id="profile_picture" name="profile_picture" class="form-control" accept="image/*">
           </div>
 
           <div class="form-grid">
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" class="form-control" placeholder="you@email.com" required>
-              <span class="error-message">Valid email required.</span>
+              <input type="email" id="email" name="email" class="form-control" placeholder="you@email.com" value="{{ old('email') }}" required>
+              @error('email') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" class="form-control" placeholder="+237 ..." required>
-              <span class="error-message">Phone is required.</span>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="+237 ..." value="{{ old('phone') }}" required>
+              @error('phone') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
             </div>
           </div>
 
@@ -355,23 +397,22 @@
             <div class="form-group">
               <label for="password">Password</label>
               <div class="input-wrapper">
-                <input type="password" id="password" class="form-control" placeholder="Min. 8 chars" required>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Min. 8 chars" required>
                 <button type="button" class="toggle-password" aria-label="Toggle password visibility">
                   <i class="far fa-eye"></i>
                 </button>
               </div>
-              <span class="error-message">Min. 8 characters.</span>
+              @error('password') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
               <label for="confirmPassword">Confirm</label>
-              <input type="password" id="confirmPassword" class="form-control" placeholder="Repeat password" required>
-              <span class="error-message">Passwords must match.</span>
+              <input type="password" id="confirmPassword" name="password_confirmation" class="form-control" placeholder="Repeat password" required>
             </div>
           </div>
 
           <div class="checkbox-group">
-            <input type="checkbox" id="terms" required>
+            <input type="checkbox" id="terms" name="terms" required>
             <label for="terms">I accept the Millenium <a href="#">Terms of Excellence</a> and <a href="#">Privacy Commitment</a></label>
           </div>
 
@@ -386,7 +427,33 @@
     </div>
   </div>
 
+  <!-- Toast Notifications (Floating) -->
+  <div class="fixed bottom-6 right-6 z-[200] space-y-3">
+    <template x-for="toast in toasts" :key="toast.id">
+      <div x-show="true" 
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+           x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 scale-100"
+           x-transition:leave-end="opacity-0 scale-95"
+           class="flex items-center space-x-3 px-6 py-4 rounded-2xl shadow-2xl border backdrop-blur-md bg-white/90"
+           :class="{
+               'bg-green-500/90 border-green-400 text-white': toast.type === 'success',
+               'bg-red-500/90 border-red-400 text-white': toast.type === 'error'
+           }">
+        <div class="p-1 bg-white/20 rounded-lg">
+          <i :data-lucide="toast.type === 'success' ? 'check-circle' : 'alert-circle'" class="w-5 h-5 text-white"></i>
+        </div>
+        <p class="text-sm font-bold" x-text="toast.message"></p>
+      </div>
+    </template>
+  </div>
+
   <script>
+    /**
+     * Frontend Validation and Form Submission logic
+     */
     const form = document.getElementById('registerForm');
     const inputs = {
       fullName: document.getElementById('fullName'),
@@ -398,6 +465,7 @@
     };
     const submitBtn = document.getElementById('submitBtn');
 
+    // Validation rules
     const validators = {
       fullName: (val) => val.trim().length >= 2,
       email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
@@ -407,6 +475,9 @@
       terms: (checked) => checked
     };
 
+    /**
+     * Validate a specific field and update UI
+     */
     function validateField(input, key) {
       const group = input.closest('.form-group') || input.closest('.checkbox-group');
       const isValid = key === 'terms' ? validators[key](input.checked) : validators[key](input.value);
@@ -422,6 +493,7 @@
       return isValid;
     }
 
+    // Event listeners for real-time feedback
     Object.keys(inputs).forEach(key => {
       inputs[key].addEventListener('input', () => {
         if (inputs[key].value || key === 'terms') validateField(inputs[key], key);
@@ -429,6 +501,7 @@
       inputs[key].addEventListener('blur', () => validateField(inputs[key], key));
     });
 
+    // Password visibility toggle
     document.querySelectorAll('.toggle-password').forEach(btn => {
       btn.addEventListener('click', () => {
         const input = btn.previousElementSibling;
@@ -438,28 +511,26 @@
       });
     });
 
+    // Form submission handler
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
       let allValid = true;
       Object.keys(inputs).forEach(key => {
         if (!validateField(inputs[key], key)) allValid = false;
       });
 
-      if (!allValid) return;
+      if (!allValid) {
+        e.preventDefault();
+        return;
+      }
 
+      // Show loading spinner
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
+    });
 
-      // Simulate registration
-      setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        submitBtn.querySelector('.btn-text').textContent = 'Welcome to Millenium!';
-        submitBtn.style.background = 'var(--success)';
-        submitBtn.style.boxShadow = '0 8px 25px rgba(56, 161, 105, 0.3)';
-        
-        setTimeout(() => window.location.href = '/login', 1500);
-      }, 2000);
+    // Initialize icons
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     });
   </script>
 </body>
