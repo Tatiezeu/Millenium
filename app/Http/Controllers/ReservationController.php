@@ -15,6 +15,9 @@ class ReservationController extends Controller
      * Store a new reservation.
      * Includes logic for recommending better tables based on guest count.
      */
+    /**
+     * Execute the store action.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -62,6 +65,9 @@ class ReservationController extends Controller
     /**
      * Update reservation status (Confirm/Cancel).
      */
+    /**
+     * Execute the update action.
+     */
     public function update(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
@@ -87,6 +93,9 @@ class ReservationController extends Controller
     /**
      * Public reservation storage.
      * Checks if user is logged in, otherwise redirects to register.
+     */
+    /**
+     * Execute the publicStore action.
      */
     public function publicStore(Request $request)
     {

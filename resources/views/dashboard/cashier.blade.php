@@ -1,3 +1,5 @@
+{-- Cashier View --}
+{-- This view handles the display and user interaction for Cashier. --}
 @extends('layouts.dashboard')
 
 @section('title', 'Cashier')

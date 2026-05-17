@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Sale Model
+ * Represents the Sale entity in the database.
+ */
 class Sale extends Model
 {
 
     protected $table = 'sales';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'order_id',
@@ -16,11 +23,17 @@ class Sale extends Model
         'payment_method',
         'cashier_id',
     ];
+    /**
+     * Order.
+     */
 
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
+    /**
+     * Cashier.
+     */
 
     public function cashier()
     {

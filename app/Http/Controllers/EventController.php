@@ -15,6 +15,9 @@ class EventController extends Controller
     /**
      * Store a newly created event.
      */
+    /**
+     * Execute the store action.
+     */
     public function store(Request $request)
     {
         // Validate event data
@@ -50,6 +53,9 @@ class EventController extends Controller
     /**
      * Update the status of an event.
      */
+    /**
+     * Execute the updateStatus action.
+     */
     public function updateStatus(Request $request, $id)
     {
         $event = Event::findOrFail($id);
@@ -67,6 +73,9 @@ class EventController extends Controller
 
     /**
      * Remove an event from the system.
+     */
+    /**
+     * Execute the destroy action.
      */
     public function destroy($id)
     {

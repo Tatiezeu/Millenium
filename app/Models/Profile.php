@@ -3,14 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Profile Model
+ * Represents the Profile entity in the database.
+ */
 class Profile extends Model
 {
     use HasFactory;
 
 
     protected $table = 'profiles';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'user_id',
@@ -21,6 +28,9 @@ class Profile extends Model
         'city',
         'country',
     ];
+    /**
+     * User.
+     */
 
     public function user()
     {

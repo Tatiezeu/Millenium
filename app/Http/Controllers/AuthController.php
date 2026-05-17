@@ -8,10 +8,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * AuthController
+ * Handles requests related to Auth.
+ */
 class AuthController extends Controller
 {
     /**
      * Display the login view.
+     */
+    /**
+     * Execute the login action.
      */
     public function login()
     {
@@ -20,6 +27,9 @@ class AuthController extends Controller
 
     /**
      * Display the registration view.
+     */
+    /**
+     * Execute the register action.
      */
     public function register()
     {
@@ -31,6 +41,9 @@ class AuthController extends Controller
      * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
+     */
+    /**
+     * Execute the store action.
      */
     public function store(Request $request)
     {
@@ -75,6 +88,9 @@ class AuthController extends Controller
     /**
      * Show the account verification view.
      */
+    /**
+     * Execute the showVerifyAccount action.
+     */
     public function showVerifyAccount()
     {
         if (!Auth::check() || Auth::user()->status === 'Active') {
@@ -85,6 +101,9 @@ class AuthController extends Controller
 
     /**
      * Handle account verification code.
+     */
+    /**
+     * Execute the confirmVerification action.
      */
     public function confirmVerification(Request $request)
     {
@@ -115,6 +134,9 @@ class AuthController extends Controller
      * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
+     */
+    /**
+     * Execute the authenticate action.
      */
     public function authenticate(Request $request)
     {
@@ -188,6 +210,9 @@ class AuthController extends Controller
     /**
      * Show the 2FA verification view.
      */
+    /**
+     * Execute the showVerify action.
+     */
     public function showVerify()
     {
         if (!Auth::check() || !session('2fa_pending')) {
@@ -198,6 +223,9 @@ class AuthController extends Controller
 
     /**
      * Handle 2FA code verification.
+     */
+    /**
+     * Execute the verifyCode action.
      */
     public function verifyCode(Request $request)
     {
@@ -227,6 +255,9 @@ class AuthController extends Controller
      * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
+     */
+    /**
+     * Execute the logout action.
      */
     public function logout(Request $request)
     {

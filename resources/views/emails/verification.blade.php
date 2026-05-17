@@ -1,3 +1,5 @@
+{-- Verification View --}
+{-- This view handles the display and user interaction for Verification. --}
 <!DOCTYPE html>
 <html>
 <head>

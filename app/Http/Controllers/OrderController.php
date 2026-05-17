@@ -7,10 +7,17 @@ use App\Models\Order;
 use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * OrderController
+ * Handles requests related to Order.
+ */
 class OrderController extends Controller
 {
     /**
      * Store a new order from the public welcome page.
+     */
+    /**
+     * Execute the store action.
      */
     public function store(Request $request)
     {
@@ -42,6 +49,9 @@ class OrderController extends Controller
     /**
      * Display the orders in the dashboard.
      */
+    /**
+     * Execute the index action.
+     */
     public function index()
     {
         $orders = Order::with(['user', 'table'])->latest()->get();
@@ -50,6 +60,9 @@ class OrderController extends Controller
 
     /**
      * Update order status.
+     */
+    /**
+     * Execute the updateStatus action.
      */
     public function updateStatus(Request $request, $id)
     {
@@ -67,6 +80,9 @@ class OrderController extends Controller
 
     /**
      * Print receipt for an order.
+     */
+    /**
+     * Execute the printReceipt action.
      */
     public function printReceipt($id)
     {

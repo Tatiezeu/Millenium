@@ -17,6 +17,9 @@ class NotificationController extends Controller
      * Store a newly created notification (message).
      * Now supports sending to specific roles or all staff accounts.
      */
+    /**
+     * Execute the store action.
+     */
     public function store(Request $request)
     {
         // Validate request
@@ -87,6 +90,9 @@ class NotificationController extends Controller
 
     /**
      * Mark a notification as read.
+     */
+    /**
+     * Execute the markAsRead action.
      */
     public function markAsRead($id)
     {

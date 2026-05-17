@@ -3,14 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Event Model
+ * Represents the Event entity in the database.
+ */
 class Event extends Model
 {
     use HasFactory;
 
 
     protected $table = 'events';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'title',

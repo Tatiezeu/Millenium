@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Service Model for managing Menu Items (Meals and Drinks)
@@ -33,6 +33,9 @@ class Service extends Model
      * name: Title of the dish/drink
      * type: 'meal' or 'drink'
      * category: Sub-classification (e.g., Breakfast, Wine)
+     */
+    /**
+     * The attributes that are mass assignable.
      */
     protected $fillable = [
         'name',

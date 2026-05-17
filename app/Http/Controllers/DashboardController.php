@@ -12,8 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * DashboardController
+ * Handles requests related to Dashboard.
+ */
 class DashboardController extends Controller
 {
+    /**
+     * Execute the index action.
+     */
     public function index() 
     { 
         $totalStaff = User::whereIn('role', ['waiter', 'cook', 'manager', 'cashier', 'delivery', 'restaurant manager'])->count();
@@ -35,6 +42,9 @@ class DashboardController extends Controller
     /**
      * Display the reservations view with real data and stats.
      */
+    /**
+     * Execute the reservations action.
+     */
     public function reservations() 
     { 
         $clients = User::where('role', 'client')->get();
@@ -52,6 +62,9 @@ class DashboardController extends Controller
     
     /**
      * Display the tables view with filtering capabilities.
+     */
+    /**
+     * Execute the tables action.
      */
     public function tables(Request $request) 
     { 
@@ -75,6 +88,9 @@ class DashboardController extends Controller
     /**
      * Display the services view with data from MongoDB.
      */
+    /**
+     * Execute the services action.
+     */
     public function services() 
     { 
         $meals = Service::where('type', 'meal')->get();
@@ -85,16 +101,25 @@ class DashboardController extends Controller
     /**
      * Display the events view with all scheduled occasions.
      */
+    /**
+     * Execute the events action.
+     */
     public function events() 
     { 
         $events = \App\Models\Event::latest()->get();
         return view('dashboard.events', compact('events')); 
     }
+    /**
+     * Execute the gallery action.
+     */
     public function gallery() 
     { 
         $images = \App\Models\Gallery::latest()->get();
         return view('dashboard.gallery', compact('images')); 
     }
+    /**
+     * Execute the reports action.
+     */
     public function reports() 
     { 
         $reports = \App\Models\Report::with('creator')->latest()->get();
@@ -110,6 +135,9 @@ class DashboardController extends Controller
     /**
      * Print a summary report.
      */
+    /**
+     * Execute the printReport action.
+     */
     public function printReport(Request $request)
     {
         $totalSales = \App\Models\Sale::sum('amount');
@@ -121,9 +149,18 @@ class DashboardController extends Controller
 
         return view('dashboard.print-report', compact('totalSales', 'totalOrders', 'totalCustomers', 'totalReservations', 'recentSales'));
     }
+    /**
+     * Execute the profile action.
+     */
 
     public function profile() { return view('dashboard.profile'); }
+    /**
+     * Execute the orders action.
+     */
     public function orders() { return view('dashboard.orders'); }
+    /**
+     * Execute the myOrders action.
+     */
     public function myOrders() 
     { 
         $user = Auth::user();
@@ -145,6 +182,9 @@ class DashboardController extends Controller
         $orders = $query->latest()->get();
         return view('dashboard.my-orders', compact('orders')); 
     }
+    /**
+     * Execute the cashier action.
+     */
     public function cashier() 
     { 
         $completedOrders = \App\Models\Order::where('status', 'completed')->get();
@@ -157,6 +197,9 @@ class DashboardController extends Controller
 
         return view('dashboard.cashier', compact('completedOrders', 'sales', 'todaySalesTotal', 'todayTransactions', 'cashPayments', 'cardPayments')); 
     }
+    /**
+     * Execute the storeSale action.
+     */
 
     public function storeSale(Request $request)
     {
@@ -187,6 +230,9 @@ class DashboardController extends Controller
     /**
      * Display the staff accounts view with real data.
      */
+    /**
+     * Execute the staffAccounts action.
+     */
     public function staffAccounts() 
     { 
         $staffMembers = User::whereIn('role', ['waiter', 'cook', 'manager', 'cashier', 'delivery', 'restaurant manager'])->latest()->get()->map(function($user) {
@@ -204,6 +250,9 @@ class DashboardController extends Controller
     /**
      * Display the user (client) accounts view with real data.
      */
+    /**
+     * Execute the userAccounts action.
+     */
     public function userAccounts() 
     { 
         $userMembers = User::whereIn('role', ['client'])->latest()->get()->map(function($user) {
@@ -220,6 +269,9 @@ class DashboardController extends Controller
 
     /**
      * Store a newly created account (Staff or Client).
+     */
+    /**
+     * Execute the storeAccount action.
      */
     public function storeAccount(Request $request)
     {
@@ -253,6 +305,9 @@ class DashboardController extends Controller
 
     /**
      * Update an existing account.
+     */
+    /**
+     * Execute the updateAccount action.
      */
     public function updateAccount(Request $request, $id)
     {
@@ -288,6 +343,9 @@ class DashboardController extends Controller
     /**
      * Delete an account.
      */
+    /**
+     * Execute the destroyAccount action.
+     */
     public function destroyAccount($id)
     {
         $user = User::findOrFail($id);
@@ -302,6 +360,9 @@ class DashboardController extends Controller
     /**
      * Toggle account status (Active/Inactive).
      */
+    /**
+     * Execute the toggleStatus action.
+     */
     public function toggleStatus($id)
     {
         $user = User::findOrFail($id);
@@ -314,6 +375,9 @@ class DashboardController extends Controller
     /**
      * Toggle 2FA status.
      */
+    /**
+     * Execute the toggle2FA action.
+     */
     public function toggle2FA($id)
     {
         $user = User::findOrFail($id);
@@ -325,6 +389,9 @@ class DashboardController extends Controller
     
     /**
      * Display the notifications view with inbox and sent messages.
+     */
+    /**
+     * Execute the notifications action.
      */
     public function notifications() 
     { 
@@ -345,6 +412,9 @@ class DashboardController extends Controller
     /**
      * Display the settings view.
      */
+    /**
+     * Execute the settings action.
+     */
     public function settings()
     {
         $settings = [
@@ -360,6 +430,9 @@ class DashboardController extends Controller
 
     /**
      * Update system settings.
+     */
+    /**
+     * Execute the updateSettings action.
      */
     public function updateSettings(Request $request)
     {

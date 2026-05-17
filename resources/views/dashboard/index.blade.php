@@ -1,3 +1,5 @@
+{-- Index View --}
+{-- This view handles the display and user interaction for Index. --}
 @extends('layouts.dashboard')
 
 @section('title', 'Dashboard')

@@ -18,6 +18,9 @@ class ProfileController extends Controller
     /**
      * Update the user's profile and contact information.
      */
+    /**
+     * Execute the update action.
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -68,6 +71,9 @@ class ProfileController extends Controller
 
     /**
      * Update the user's password.
+     */
+    /**
+     * Execute the updatePassword action.
      */
     public function updatePassword(Request $request)
     {

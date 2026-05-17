@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Setting Model
+ * Represents the Setting entity in the database.
+ */
 class Setting extends Model
 {
 
     protected $table = 'settings';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'key',

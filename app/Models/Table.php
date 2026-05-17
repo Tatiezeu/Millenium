@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Restaurant Table Model
@@ -36,6 +36,9 @@ class Table extends Model
      * price: Cost to reserve
      * area: Size of the space (e.g. '15 m²')
      * status: 'available' or 'occupied'
+     */
+    /**
+     * The attributes that are mass assignable.
      */
     protected $fillable = [
         'title',

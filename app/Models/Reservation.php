@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Reservation Model
@@ -27,6 +27,9 @@ class Reservation extends Model
      * reservation_time: Hour of booking
      * status: 'pending', 'confirmed', 'cancelled', 'completed'
      */
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'table_id',
         'user_id',
@@ -48,10 +51,16 @@ class Reservation extends Model
     /**
      * Relationships
      */
+    /**
+     * Table.
+     */
     public function table()
     {
         return $this->belongsTo(Table::class, 'table_id');
     }
+    /**
+     * User.
+     */
 
     public function user()
     {

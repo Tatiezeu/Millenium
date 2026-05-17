@@ -1,3 +1,5 @@
+{-- Print Receipt View --}
+{-- This view handles the display and user interaction for Print Receipt. --}
 <!DOCTYPE html>
 <html lang="en">
 <head>

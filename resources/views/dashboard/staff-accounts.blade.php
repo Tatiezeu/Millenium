@@ -1,3 +1,5 @@
+{-- Staff Accounts View --}
+{-- This view handles the display and user interaction for Staff Accounts. --}
 @extends('layouts.dashboard')
 
 @section('title', 'Staff Accounts')

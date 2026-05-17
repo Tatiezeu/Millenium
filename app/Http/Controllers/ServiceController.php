@@ -17,6 +17,9 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
+    /**
+     * Execute the store action.
+     */
     public function store(Request $request)
     {
         // Validation for the new menu item to ensure data integrity
@@ -47,6 +50,9 @@ class ServiceController extends Controller
      * @param  string  $id  The MongoDB _id of the item
      * @return \Illuminate\Http\RedirectResponse
      */
+    /**
+     * Execute the update action.
+     */
     public function update(Request $request, $id)
     {
         // Ensure inputs meet the requirements
@@ -73,6 +79,9 @@ class ServiceController extends Controller
      * 
      * @param  string  $id  The MongoDB _id of the item
      * @return \Illuminate\Http\RedirectResponse
+     */
+    /**
+     * Execute the destroy action.
      */
     public function destroy($id)
     {

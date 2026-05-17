@@ -1,3 +1,5 @@
+{-- Login View --}
+{-- This view handles the display and user interaction for Login. --}
 <!DOCTYPE html>
 <html lang="en">
 <head>

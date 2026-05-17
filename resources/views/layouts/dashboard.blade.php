@@ -1,3 +1,5 @@
+{-- Dashboard View --}
+{-- This view handles the display and user interaction for Dashboard. --}
 <!DOCTYPE html>
 <html lang="en">
 <head>

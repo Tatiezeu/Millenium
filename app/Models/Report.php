@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Report Model
+ * Represents the Report entity in the database.
+ */
 class Report extends Model
 {
 
     protected $table = 'reports';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'title',
@@ -17,6 +24,9 @@ class Report extends Model
         'period_start',
         'period_end',
     ];
+    /**
+     * Creator.
+     */
 
     public function creator()
     {

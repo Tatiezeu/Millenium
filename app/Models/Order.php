@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Order Model
+ * Represents the Order entity in the database.
+ */
 class Order extends Model
 {
 
     protected $table = 'orders';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'user_id',
@@ -25,6 +32,9 @@ class Order extends Model
     /**
      * Get the user who placed the order.
      */
+    /**
+     * User.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -33,6 +43,9 @@ class Order extends Model
     /**
      * Get the table associated with the order.
      */
+    /**
+     * Table.
+     */
     public function table()
     {
         return $this->belongsTo(Table::class);
@@ -40,6 +53,9 @@ class Order extends Model
 
     /**
      * Get a summary of items in the order.
+     */
+    /**
+     * Getitemssummaryattribute.
      */
     public function getItemsSummaryAttribute()
     {

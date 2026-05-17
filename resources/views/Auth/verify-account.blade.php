@@ -1,3 +1,5 @@
+{-- Verify Account View --}
+{-- This view handles the display and user interaction for Verify Account. --}
 <!DOCTYPE html>
 <html lang="en">
 <head>

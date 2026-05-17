@@ -3,14 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Notification Model
+ * Represents the Notification entity in the database.
+ */
 class Notification extends Model
 {
     use HasFactory;
 
 
     protected $table = 'notifications';
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
         'sender_id',
@@ -25,11 +32,17 @@ class Notification extends Model
     protected $casts = [
         'is_read' => 'boolean',
     ];
+    /**
+     * Sender.
+     */
 
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
+    /**
+     * Receiver.
+     */
 
     public function receiver()
     {

@@ -1,3 +1,5 @@
+{-- Welcome View --}
+{-- This view handles the display and user interaction for Welcome. --}
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -7,11 +7,15 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'phone', 'role', 'profile_picture', 'status', 'is_2fa_enabled', 'two_factor_code', 'two_factor_expires_at', 'verification_code'])]
 #[Hidden(['password', 'remember_token'])]
+/**
+ * User Model
+ * Represents the User entity in the database.
+ */
 class User extends Authenticatable
 {
     /**
@@ -45,6 +49,9 @@ class User extends Authenticatable
     /**
      * Get the profile associated with the user.
      * This provides access to extended profile details like bio and address.
+     */
+    /**
+     * Profile.
      */
     public function profile()
     {

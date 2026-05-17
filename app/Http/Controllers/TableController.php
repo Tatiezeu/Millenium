@@ -14,6 +14,9 @@ class TableController extends Controller
     /**
      * Store a newly created table in MongoDB.
      */
+    /**
+     * Execute the store action.
+     */
     public function store(Request $request)
     {
         // ... (existing store logic) ...
@@ -40,6 +43,9 @@ class TableController extends Controller
     /**
      * Update table status (Toggle between Available and Occupied).
      */
+    /**
+     * Execute the toggleStatus action.
+     */
     public function toggleStatus($id)
     {
         $table = Table::findOrFail($id);
@@ -51,6 +57,9 @@ class TableController extends Controller
 
     /**
      * Remove a table from the database with safety checks.
+     */
+    /**
+     * Execute the destroy action.
      */
     public function destroy($id)
     {

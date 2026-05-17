@@ -6,10 +6,17 @@ use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * GalleryController
+ * Handles requests related to Gallery.
+ */
 class GalleryController extends Controller
 {
     /**
      * Store a newly created gallery image.
+     */
+    /**
+     * Execute the store action.
      */
     public function store(Request $request)
     {
@@ -32,6 +39,9 @@ class GalleryController extends Controller
 
     /**
      * Remove the specified gallery image.
+     */
+    /**
+     * Execute the destroy action.
      */
     public function destroy($id)
     {
