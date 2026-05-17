@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Restaurant Table Model
@@ -14,19 +14,19 @@ class Table extends Model
     use HasFactory;
 
     /**
-     * Specify the MongoDB connection.
+
      */
-    protected $connection = 'mongodb';
+
 
     /**
      * Specify the collection name.
      */
-    protected $collection = 'restaurant_tables';
+    protected $table = 'restaurant_tables';
 
     /**
-     * The primary key for MongoDB documents.
+
      */
-    protected $primaryKey = '_id';
+
 
     /**
      * The attributes that are mass assignable.

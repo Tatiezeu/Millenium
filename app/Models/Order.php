@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $connection = 'mongodb';
-    protected $collection = 'orders';
+
+    protected $table = 'orders';
 
     protected $fillable = [
         'user_id',

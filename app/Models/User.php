@@ -7,7 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use MongoDB\Laravel\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'phone', 'role', 'profile_picture', 'status', 'is_2fa_enabled', 'two_factor_code', 'two_factor_expires_at', 'verification_code'])]
@@ -16,7 +16,7 @@ class User extends Authenticatable
 {
     /**
      * Default attributes for the model.
-     * In MongoDB, 'role' will default to 'client'.
+
      */
     protected $attributes = [
         'role' => 'client',

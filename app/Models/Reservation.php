@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Reservation Model
@@ -13,9 +13,9 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $connection = 'mongodb';
-    protected $collection = 'reservations';
-    protected $primaryKey = '_id';
+
+    protected $table = 'reservations';
+
 
     /**
      * The attributes that are mass assignable.
