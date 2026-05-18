@@ -1,5 +1,5 @@
-{-- Events View --}
-{-- This view handles the display and user interaction for Events. --}
+{{-- Events View --}}
+{{-- This view handles the display and user interaction for Events. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Events Management')

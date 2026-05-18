@@ -1,5 +1,5 @@
-{-- Login View --}
-{-- This view handles the display and user interaction for Login. --}
+{{-- Login View --}}
+{{-- This view handles the display and user interaction for Login. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -416,7 +416,14 @@
           <div class="form-group">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="name@email.com" value="{{ old('email') }}" required>
-            @error('email') <span class="error-message" style="display:block">{{ $message }}</span> @enderror
+            @error('email') 
+              <span class="error-message" style="display:block">{{ $message }}</span> 
+              @if(session('remaining_attempts') !== null)
+                <span class="error-message" style="display:block; color: #d32f2f; margin-top: 5px; font-size: 0.85rem;">
+                  Remaining attempts before lockout: <strong>{{ session('remaining_attempts') }}</strong> out of {{ session('max_attempts') }}
+                </span>
+              @endif
+            @enderror
           </div>
 
           <div class="form-group">

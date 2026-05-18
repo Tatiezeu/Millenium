@@ -1,5 +1,5 @@
-{-- Reports View --}
-{-- This view handles the display and user interaction for Reports. --}
+{{-- Reports View --}}
+{{-- This view handles the display and user interaction for Reports. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Reports & Analytics')

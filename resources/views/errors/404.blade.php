@@ -1,5 +1,5 @@
-{-- 404 View --}
-{-- This view handles the display and user interaction for 404. --}
+{{-- 404 View --}}
+{{-- This view handles the display and user interaction for 404. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>

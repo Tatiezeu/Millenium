@@ -39,6 +39,8 @@ class OrderController extends Controller
             'address' => $request->address,
         ]);
 
+        session()->flash('success', 'Order placed successfully! Order #' . substr($order->id, -6));
+
         return response()->json([
             'success' => true,
             'message' => 'Order placed successfully!',
@@ -88,5 +90,14 @@ class OrderController extends Controller
     {
         $order = Order::with(['user', 'table'])->findOrFail($id);
         return view('dashboard.print-receipt', compact('order'));
+    }
+
+    /**
+     * Clear all orders in the database.
+     */
+    public function clearAll()
+    {
+        Order::query()->delete();
+        return redirect()->back()->with('success', 'All orders cleared successfully!');
     }
 }

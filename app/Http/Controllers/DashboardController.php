@@ -255,7 +255,7 @@ class DashboardController extends Controller
      */
     public function userAccounts() 
     { 
-        $userMembers = User::whereIn('role', ['client'])->latest()->get()->map(function($user) {
+        $userMembers = User::whereIn('role', ['client', 'admin'])->latest()->get()->map(function($user) {
             $user->id = (string)$user->_id;
             return $user;
         });

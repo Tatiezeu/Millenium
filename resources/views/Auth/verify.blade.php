@@ -1,5 +1,5 @@
-{-- Verify View --}
-{-- This view handles the display and user interaction for Verify. --}
+{{-- Verify View --}}
+{{-- This view handles the display and user interaction for Verify. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,34 +34,57 @@
                     <div class="flex justify-between gap-2" x-data="{ 
                         code: ['', '', '', '', '', ''],
                         handleInput(e, index) {
-                            const val = e.target.value;
-                            if (!/^\d*$/.test(val)) {
+                            let val = e.target.value;
+                            val = val.replace(/\D/g, ''); // strip non-digits
+                            
+                            if (val.length === 0) {
                                 this.code[index] = '';
                                 return;
                             }
+                            
+                            // If user types or pastes multiple digits
                             if (val.length > 1) {
-                                this.code[index] = val.slice(-1);
+                                const digits = val.split('');
+                                digits.forEach((d, i) => {
+                                    if (index + i < 6) {
+                                        this.code[index + i] = d;
+                                    }
+                                });
+                                // Keep only the first digit in the current field visually
+                                e.target.value = digits[0];
+                                
+                                // Focus the next empty or last box
+                                const nextIdx = Math.min(index + digits.length, 5);
+                                this.$nextTick(() => {
+                                    this.$refs['digit' + nextIdx].focus();
+                                });
+                                return;
                             }
                             
-                            if (this.code[index] && index < 5) {
+                            // Single digit input
+                            this.code[index] = val;
+                            if (index < 5) {
                                 this.$nextTick(() => {
                                     this.$refs['digit' + (index + 1)].focus();
                                 });
                             }
                         },
                         handleKeydown(e, index) {
-                            if (e.key === 'Backspace' && !this.code[index] && index > 0) {
-                                this.$nextTick(() => {
-                                    this.$refs['digit' + (index - 1)].focus();
-                                });
+                            if (e.key === 'Backspace') {
+                                if (!this.code[index] && index > 0) {
+                                    this.code[index - 1] = '';
+                                    this.$nextTick(() => {
+                                        this.$refs['digit' + (index - 1)].focus();
+                                    });
+                                } else {
+                                    this.code[index] = '';
+                                }
                             }
                         },
                         handlePaste(e) {
-                            const pasteData = e.clipboardData.getData('text').trim().slice(0, 6).split('');
+                            const pasteData = e.clipboardData.getData('text').trim().replace(/\D/g, '').slice(0, 6).split('');
                             pasteData.forEach((char, i) => {
-                                if (/^\d$/.test(char)) {
-                                    this.code[i] = char;
-                                }
+                                this.code[i] = char;
                             });
                             const nextIndex = Math.min(pasteData.length, 5);
                             this.$nextTick(() => {
@@ -73,7 +96,7 @@
                         <template x-for="(digit, index) in code" :key="index">
                             <input 
                                 type="text" 
-                                maxlength="1" 
+                                maxlength="6" 
                                 x-model="code[index]"
                                 class="w-12 h-14 text-center text-2xl font-bold bg-gray-50 border-2 border-gray-100 rounded-xl focus:border-[#8B1C3A] focus:ring-0 outline-none transition-all"
                                 :x-ref="'digit' + index"

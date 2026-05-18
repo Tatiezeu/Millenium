@@ -1,5 +1,5 @@
-{-- Notifications View --}
-{-- This view handles the display and user interaction for Notifications. --}
+{{-- Notifications View --}}
+{{-- This view handles the display and user interaction for Notifications. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Notifications')

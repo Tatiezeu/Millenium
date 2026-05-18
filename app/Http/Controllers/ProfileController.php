@@ -66,6 +66,7 @@ class ProfileController extends Controller
             ]
         );
 
+        session()->forget(['welcome', 'error', 'status']);
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 

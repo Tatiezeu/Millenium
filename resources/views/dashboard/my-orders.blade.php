@@ -1,5 +1,5 @@
-{-- My Orders View --}
-{-- This view handles the display and user interaction for My Orders. --}
+{{-- My Orders View --}}
+{{-- This view handles the display and user interaction for My Orders. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'My Orders')

@@ -1,5 +1,5 @@
-{-- Services View --}
-{-- This view handles the display and user interaction for Services. --}
+{{-- Services View --}}
+{{-- This view handles the display and user interaction for Services. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Services')

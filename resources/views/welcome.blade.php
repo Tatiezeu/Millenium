@@ -1,5 +1,5 @@
-{-- Welcome View --}
-{-- This view handles the display and user interaction for Welcome. --}
+{{-- Welcome View --}}
+{{-- This view handles the display and user interaction for Welcome. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,6 +212,229 @@
       .btn { width: 100%; }
       .welcome-grid, .location-grid { grid-template-columns: 1fr; }
     }
+
+    /* Custom Reservation Modal Styles */
+    .res-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .res-modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .res-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+      overflow: hidden;
+      z-index: 2501;
+      display: flex;
+      flex-direction: column;
+      animation: zoom-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .res-modal-header {
+      padding: 1.8rem 2.2rem;
+      border-bottom: 1px solid #f0e9e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #faf8f5;
+    }
+    .res-modal-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0;
+    }
+    .res-modal-header p {
+      margin: 0.3rem 0 0;
+      font-size: 0.9rem;
+    }
+    .res-modal-close {
+      background: none;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .res-modal-close:hover {
+      background: #f0eae1;
+    }
+    .res-modal-close i {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+    .res-modal-body {
+      padding: 2.2rem;
+    }
+    .res-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .res-form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+    }
+    .res-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .res-form-group.full-width {
+      grid-column: span 2;
+    }
+    @media (max-width: 600px) {
+      .res-form-group.full-width {
+        grid-column: span 1;
+      }
+    }
+    .res-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.2rem;
+    }
+    .res-input {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border: 1.5px solid #eaeaea;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: #fdfdfd;
+      color: var(--text);
+    }
+    .res-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(139,28,58,0.06);
+    }
+    .res-input-readonly {
+      background: #f3eee7;
+      border-color: #eae3d8;
+      color: #6a6255;
+      cursor: not-allowed;
+    }
+    .res-recommendation {
+      padding: 1rem 1.2rem;
+      background: rgba(139, 28, 58, 0.05);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 14px 14px 0;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      animation: fade-in 0.3s ease-out;
+    }
+    .res-recommendation i {
+      color: var(--primary);
+      margin-right: 0.8rem;
+      font-size: 1.1rem;
+    }
+    .res-recommendation p {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .res-btn-submit {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--primary);
+      color: var(--white);
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 8px 25px rgba(139,28,58,0.25);
+    }
+    .res-btn-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(139,28,58,0.35);
+    }
+
+    /* Custom Toast Notification Styles */
+    .res-toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      pointer-events: none;
+    }
+    .res-toast {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      border: 1.5px solid transparent;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      pointer-events: auto;
+      animation: res-toast-slide-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: var(--white);
+    }
+    .res-toast-success {
+      background: rgba(46, 125, 50, 0.95);
+      border-color: #4caf50;
+    }
+    .res-toast-error {
+      background: rgba(211, 47, 47, 0.95);
+      border-color: #f44336;
+    }
+    .res-toast-info {
+      background: rgba(139, 28, 58, 0.95);
+      border-color: var(--accent);
+    }
+    .res-toast-icon {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .res-toast-message {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    @keyframes res-toast-slide-in {
+      from { transform: translateY(2rem) scale(0.9); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body x-data="{
@@ -237,10 +460,9 @@
     get recommendation() {
         if (!this.selectedTable) return '';
         if (this.guestCount > this.selectedTable.seats) {
-            if (this.selectedTable.category === 'Standard') return 'Standard tables only have 2 seats. We recommend Medium or VIP for ' + this.guestCount + ' guests.';
-            if (this.selectedTable.category === 'Medium') return 'Medium tables only have 4 seats. We recommend VIP for ' + this.guestCount + ' guests.';
+            return 'Table ' + this.selectedTable.title + ' has only ' + this.selectedTable.seats + ' seats. We recommend a larger table for ' + this.guestCount + ' guests.';
         }
-        return '';
+        return 'Perfect fit! Table ' + this.selectedTable.title + ' (' + this.selectedTable.category + ') has ' + this.selectedTable.seats + ' seats, ideal for ' + this.guestCount + ' guests.';
     },
 
     /* ─── Open reservation modal, enforce auth ──────────────────── */
@@ -293,8 +515,38 @@
         setTimeout(() => { this.toasts = this.toasts.filter(t => t.id !== id); }, 4500);
     },
 
+    /* ─── Propose the absolute best-fit table automatically ─────── */
+    proposeBestTable() {
+        if (this.availableTables.length === 0) return;
+        
+        // Filter tables that can accommodate the current guest count
+        const fittingTables = this.availableTables.filter(t => t.seats >= this.guestCount);
+        
+        if (fittingTables.length > 0) {
+            // Sort by seats ascending to get the most optimized size
+            fittingTables.sort((a, b) => a.seats - b.seats);
+            const bestFit = fittingTables[0];
+            
+            // Propose it if current table is too small or way too oversized compared to the best fit
+            if (!this.selectedTable || this.selectedTable.seats < this.guestCount || this.selectedTable.seats > bestFit.seats) {
+                const currentId = this.selectedTable ? (this.selectedTable.id || this.selectedTable._id) : null;
+                const bestFitId = bestFit.id || bestFit._id;
+                
+                if (currentId !== bestFitId) {
+                    this.selectedTable = bestFit;
+                    this.showToast('We proposed Table ' + bestFit.title + ' (' + bestFit.category + ') as it best fits ' + this.guestCount + ' guests.', 'info');
+                }
+            }
+        }
+    },
+
     /* ─── On page load: surface any Laravel session flashes ─────── */
     init() {
+        // Watch for changes in guest count to dynamically recommend & propose the best suited table
+        this.$watch('guestCount', (value) => {
+            if (value < 1) this.guestCount = 1;
+            this.proposeBestTable();
+        });
         @if(session('success')) this.showToast(@js(session('success')), 'success'); @endif
         @if(session('error'))   this.showToast(@js(session('error')),   'error');   @endif
         @if(session('info'))    this.showToast(@js(session('info')),    'info');     @endif
@@ -554,25 +806,38 @@
     </div>
   </section>
 
-  <!-- Gallery Section -->
+  <!-- 
+      Gallery Section 
+      Dynamically retrieves and renders guest-uploaded or manager-curated hospitality images from the database.
+      Falls back to high-resolution premium Unsplash images if no records exist in the database.
+  -->
   <section id="gallery">
     <div class="section-header fade-in">
       <span class="section-subtitle">Gallery</span>
       <h2 class="section-title">A Glimpse of Millenium</h2>
     </div>
     <div class="gallery-grid fade-in">
+      {{-- 
+          Loop through gallery records fetched dynamically from the database.
+          Each record points to a file uploaded through the admin gallery dashboard.
+      --}}
       @forelse($gallery as $img)
         <div class="gallery-item">
+            <!-- Render the dynamic image using Laravel's public asset storage disk -->
             <img src="{{ asset('storage/' . $img->image_path) }}" alt="{{ $img->title }}">
             <div class="gallery-overlay">
                 <div class="text-center">
                     <p class="text-white font-bold text-sm">{{ $img->title }}</p>
+                    <span style="font-size: 0.7rem; display: block; opacity: 0.8; font-weight: 500; text-transform: uppercase; margin-bottom: 0.5rem; color: #ffd700;">{{ $img->category }}</span>
                     <i class="fas fa-search-plus mt-2"></i>
                 </div>
             </div>
         </div>
       @empty
-        <!-- Fallback if gallery is empty -->
+        {{-- 
+            Fallback State: If the restaurant managers haven't uploaded custom pictures yet,
+            we show stunning high-resolution showcase images to keep the aesthetics beautiful.
+        --}}
         <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
         <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
         <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
@@ -913,7 +1178,6 @@
 
             const data = await response.json();
             if (data.success) {
-                alert(data.message);
                 cart = [];
                 updateCart();
                 closeMenu();
@@ -930,73 +1194,71 @@
     document.getElementById('year').innerText = new Date().getFullYear();
   </script>
     <!-- Public Reservation Modal -->
-    <div x-show="isReservationModalOpen" class="fixed inset-0 z-[200] flex items-center justify-center p-6" x-cloak>
-        <div @click="isReservationModalOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-md animate-fade-in"></div>
-        <div class="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-zoom-in">
-            <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+    <div x-show="isReservationModalOpen" class="res-modal-overlay" x-cloak>
+        <div @click="isReservationModalOpen = false" class="res-modal-backdrop"></div>
+        <div class="res-modal-content">
+            <div class="res-modal-header">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900">Book Your Table</h2>
-                    <p class="text-sm text-[#8B1C3A] font-bold mt-1" x-show="selectedTable" x-text="'Table: ' + selectedTable.title + ' (' + selectedTable.category + ' Class)'"></p>
+                    <h2>Book Your Table</h2>
+                    <p class="text-sm font-bold mt-1" style="color: var(--primary);" x-show="selectedTable" x-text="'Table: ' + selectedTable.title + ' (' + selectedTable.category + ' Class)'"></p>
                 </div>
-                <button @click="isReservationModalOpen = false" class="p-2 hover:bg-gray-200 rounded-full transition-colors">
-                    <i class="fas fa-times text-gray-400"></i>
+                <button @click="isReservationModalOpen = false" class="res-modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <form action="{{ route('public.reserve') }}" method="POST" @submit="handleSubmit($event)" class="p-8 space-y-6">
+            <form action="{{ route('public.reserve') }}" method="POST" @submit="handleSubmit($event)" class="res-modal-body">
                 @csrf
                 <!-- Hidden inputs for pre-filled data -->
                 <input type="hidden" name="table_id" :value="selectedTable ? (selectedTable.id || selectedTable._id) : ''">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Full Name</label>
-                        <input type="text" :value="userData ? userData.name : ''" readonly class="w-full px-5 py-4 bg-gray-100 border border-gray-100 rounded-2xl outline-none font-bold text-gray-700 cursor-not-allowed">
+                <div class="res-form-grid">
+                    <div class="res-form-group">
+                        <label class="res-label">Full Name</label>
+                        <input type="text" :value="userData ? userData.name : ''" readonly class="res-input res-input-readonly">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Email Address</label>
-                        <input type="email" :value="userData ? userData.email : ''" readonly class="w-full px-5 py-4 bg-gray-100 border border-gray-100 rounded-2xl outline-none font-bold text-gray-700 cursor-not-allowed">
+                    <div class="res-form-group">
+                        <label class="res-label">Email Address</label>
+                        <input type="email" :value="userData ? userData.email : ''" readonly class="res-input res-input-readonly">
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Phone Number</label>
-                        <input type="text" :value="userData ? userData.phone : ''" readonly class="w-full px-5 py-4 bg-gray-100 border border-gray-100 rounded-2xl outline-none font-bold text-gray-700 cursor-not-allowed">
+                <div class="res-form-grid">
+                    <div class="res-form-group">
+                        <label class="res-label">Phone Number</label>
+                        <input type="text" :value="userData ? userData.phone : ''" readonly class="res-input res-input-readonly">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Number of Guests</label>
-                        <input type="number" name="guest_count" x-model="guestCount" min="1" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none font-medium">
+                    <div class="res-form-group">
+                        <label class="res-label">Number of Guests</label>
+                        <input type="number" name="guest_count" x-model="guestCount" min="1" required class="res-input">
                     </div>
                 </div>
 
                 <!-- Recommendation Notification -->
                 <template x-if="recommendation">
-                    <div class="p-4 bg-[#8B1C3A]/5 border-l-4 border-[#8B1C3A] rounded-r-xl animate-fade-in">
-                        <div class="flex items-center">
-                            <i class="fas fa-lightbulb text-[#8B1C3A] mr-3"></i>
-                            <p class="text-xs font-bold text-[#8B1C3A]" x-text="recommendation"></p>
-                        </div>
+                    <div class="res-recommendation">
+                        <i class="fas fa-lightbulb"></i>
+                        <p x-text="recommendation"></p>
                     </div>
                 </template>
 
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Date</label>
-                        <input type="date" name="reservation_date" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none font-medium">
+                <div class="res-form-grid">
+                    <div class="res-form-group">
+                        <label class="res-label">Date</label>
+                        <input type="date" name="reservation_date" required class="res-input">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Time</label>
-                        <input type="time" name="reservation_time" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none font-medium">
+                    <div class="res-form-group">
+                        <label class="res-label">Time</label>
+                        <input type="time" name="reservation_time" required class="res-input">
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Special Requests</label>
-                    <textarea name="notes" rows="3" placeholder="Any dietary requirements or special occasions?" class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-[#8B1C3A]/20 outline-none font-medium"></textarea>
+                <div class="res-form-group" style="margin-bottom: 1.8rem;">
+                    <label class="res-label">Special Requests</label>
+                    <textarea name="notes" rows="3" placeholder="Any dietary requirements or special occasions?" class="res-input" style="resize: vertical;"></textarea>
                 </div>
 
-                <button type="submit" class="w-full py-5 bg-[#8B1C3A] text-white font-bold rounded-2xl hover:bg-[#a01c3a] transition-all shadow-xl shadow-[#8B1C3A]/30 text-lg">
+                <button type="submit" class="res-btn-submit">
                     Confirm Reservation Request
                 </button>
             </form>
@@ -1015,23 +1277,17 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Toast Notification Container — state lives on <body> x-data -->
-<div class="fixed bottom-8 right-8 z-[9999] flex flex-col gap-3 pointer-events-none">
+<div class="res-toast-container">
     <template x-for="toast in toasts" :key="toast.id">
         <div x-show="true"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 translate-y-4 scale-95"
-             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100"
-             x-transition:leave-end="opacity-0 scale-95"
-             class="flex items-center gap-4 px-7 py-4 rounded-2xl shadow-2xl border backdrop-blur-xl pointer-events-auto"
+             class="res-toast"
              :class="{
-                 'bg-green-600/95 border-green-400 text-white': toast.type === 'success',
-                 'bg-red-600/95 border-red-400 text-white':     toast.type === 'error',
-                 'bg-[#8B1C3A]/95 border-amber-400/30 text-white': toast.type === 'info'
+                 'res-toast-success': toast.type === 'success',
+                 'res-toast-error':   toast.type === 'error',
+                 'res-toast-info':    toast.type === 'info'
              }">
-            <span class="text-xl font-bold" x-text="toast.type === 'success' ? '✓' : (toast.type === 'error' ? '✕' : 'ℹ')"></span>
-            <p class="text-sm font-semibold tracking-wide" x-text="toast.message"></p>
+            <span class="res-toast-icon" x-text="toast.type === 'success' ? '✓' : (toast.type === 'error' ? '✕' : 'ℹ')"></span>
+            <p class="res-toast-message" x-text="toast.message"></p>
         </div>
     </template>
 </div>
