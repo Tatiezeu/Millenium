@@ -80,6 +80,8 @@ Route::middleware(['auth', '2fa'])->prefix('dashboard')->group(function () {
     Route::post('/accounts', [DashboardController::class, 'storeAccount'])->name('accounts.store');
     Route::put('/accounts/{id}', [DashboardController::class, 'updateAccount'])->name('accounts.update');
     Route::delete('/accounts/{id}', [DashboardController::class, 'destroyAccount'])->name('accounts.destroy');
+    Route::delete('/orders/clear-all', [\App\Http\Controllers\OrderController::class, 'clearAll'])->name('orders.clear-all');
+    Route::delete('/reservations/clear-all', [\App\Http\Controllers\ReservationController::class, 'clearAll'])->name('reservations.clear-all');
     Route::patch('/accounts/{id}/toggle-status', [DashboardController::class, 'toggleStatus'])->name('accounts.toggle-status');
     Route::patch('/accounts/{id}/toggle-2fa', [DashboardController::class, 'toggle2FA'])->name('accounts.toggle-2fa');
 

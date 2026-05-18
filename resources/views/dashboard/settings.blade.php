@@ -1,5 +1,5 @@
-{-- Settings View --}
-{-- This view handles the display and user interaction for Settings. --}
+{{-- Settings View --}}
+{{-- This view handles the display and user interaction for Settings. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Settings')

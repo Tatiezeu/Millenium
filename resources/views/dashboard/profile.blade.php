@@ -1,5 +1,5 @@
-{-- Profile View --}
-{-- This view handles the display and user interaction for Profile. --}
+{{-- Profile View --}}
+{{-- This view handles the display and user interaction for Profile. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'My Profile')

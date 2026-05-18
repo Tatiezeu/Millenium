@@ -1,5 +1,5 @@
-{-- Dashboard View --}
-{-- This view handles the display and user interaction for Dashboard. --}
+{{-- Dashboard View --}}
+{{-- This view handles the display and user interaction for Dashboard. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,20 +55,23 @@
     init() {
         @if(session('welcome'))
             this.showToast('{{ session('welcome') }}', 'success');
+            @php session()->forget('welcome'); @endphp
         @endif
         @if(session('success'))
             this.showToast('{{ session('success') }}', 'success');
+            @php session()->forget('success'); @endphp
         @endif
         @if(session('error'))
             this.showToast('{{ session('error') }}', 'error');
+            @php session()->forget('error'); @endphp
         @endif
     }
 }" x-init="init()" @toast.window="showToast($event.detail.message, $event.detail.type)">
 
     <div class="flex h-screen overflow-hidden">
         
-        <!-- Sidebar Navigation (Hidden for Clients) -->
-        @if(Auth::user()->role !== 'client')
+        <!-- Sidebar Navigation (Visible for All Roles) -->
+        @if(Auth::check())
         <aside class="w-64 bg-[#8B1C3A] text-white flex flex-col flex-shrink-0 shadow-xl">
             <!-- Brand Logo -->
             <div class="p-6 border-b border-[#ffd700]/20">
@@ -87,7 +90,8 @@
             <nav class="flex-1 overflow-y-auto py-4 sidebar-scroll">
                 <ul class="space-y-1 px-3">
                     @php
-                        $menuItems = [
+                        // Full list of possible menu items in the system
+                        $allMenuItems = [
                             ['icon' => 'layout-dashboard', 'label' => 'Dashboard', 'path' => 'dashboard'],
                             ['icon' => 'calendar', 'label' => 'Reservations', 'path' => 'dashboard/reservations'],
                             ['icon' => 'utensils', 'label' => 'Tables', 'path' => 'dashboard/tables'],
@@ -104,6 +108,56 @@
                             ['icon' => 'user', 'label' => 'Profile', 'path' => 'dashboard/profile'],
                             ['icon' => 'settings', 'label' => 'Settings', 'path' => 'dashboard/settings'],
                         ];
+
+                        // Get current logged in user's role
+                        $role = Auth::user()->role;
+                        $menuItems = [];
+
+                        // Implement Role-Based Access Control (RBAC) filtering
+                        foreach ($allMenuItems as $item) {
+                            $path = $item['path'];
+
+                            if ($role === 'restaurant manager') {
+                                // Restaurant Manager manages Staff, Events, Reports, Services, Orders, reservations, tables, gallery, etc.
+                                // He sees everything EXCEPT Admin's User Accounts and Settings
+                                if (!in_array($path, ['dashboard/user-accounts', 'dashboard/settings'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } elseif ($role === 'admin') {
+                                // Admin sees all links in the system
+                                $menuItems[] = $item;
+                            } elseif ($role === 'waiter') {
+                                // Waiter receives orders, views notifications, and manages profile
+                                if (in_array($path, ['dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } elseif (in_array($role, ['cook', 'cooks'])) {
+                                // Cooks receive and update food orders, view notifications, and manage profile
+                                if (in_array($path, ['dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } elseif ($role === 'cashier') {
+                                // Cashier registers orders, prints receipts, updates payments, views notifications/profile
+                                if (in_array($path, ['dashboard/cashier', 'dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } elseif (in_array($role, ['delivery', 'delivery agent'])) {
+                                // Delivery agent manages assigned orders, notifications, and profile
+                                if (in_array($path, ['dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } elseif ($role === 'client') {
+                                // Client views their own orders, receives notifications, and manages profile
+                                if (in_array($path, ['dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            } else {
+                                // Default fallback for any other roles
+                                if (in_array($path, ['dashboard/my-orders', 'dashboard/notifications', 'dashboard/profile'])) {
+                                    $menuItems[] = $item;
+                                }
+                            }
+                        }
                     @endphp
 
                     @foreach($menuItems as $item)

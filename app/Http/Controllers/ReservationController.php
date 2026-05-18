@@ -85,9 +85,28 @@ class ReservationController extends Controller
             elseif ($reservation->status === 'cancelled' && $oldStatus === 'confirmed' && $reservation->table) {
                 $reservation->table->update(['status' => 'available']);
             }
+
+            // Create notification for the client who made the reservation
+            if ($reservation->user_id) {
+                $receiverId = $reservation->user_id;
+                if (is_string($receiverId) && strlen($receiverId) === 24 && ctype_xdigit($receiverId)) {
+                    $receiverId = new \MongoDB\BSON\ObjectId($receiverId);
+                }
+
+                $statusLabel = strtoupper($reservation->status);
+                $message = "Your reservation request for " . ($reservation->table->title ?? 'Table') . " on " . $reservation->reservation_date . " at " . $reservation->reservation_time . " has been " . $statusLabel . ".";
+
+                \App\Models\Notification::create([
+                    'sender_id' => auth()->id(),
+                    'receiver_id' => $receiverId,
+                    'message' => $message,
+                    'type' => 'reservation',
+                    'is_read' => false,
+                ]);
+            }
         }
 
-        return redirect()->back()->with('success', 'Reservation updated and table status synced!');
+        return redirect()->back()->with('success', 'Reservation updated, table status synced, and client notified!');
     }
 
     /**
@@ -142,5 +161,14 @@ class ReservationController extends Controller
         ]);
 
         return redirect('/')->with('success', 'Your reservation request has been sent! We will contact you soon.');
+    }
+
+    /**
+     * Clear all reservations in the database.
+     */
+    public function clearAll()
+    {
+        Reservation::query()->delete();
+        return redirect()->back()->with('success', 'All reservations cleared successfully!');
     }
 }

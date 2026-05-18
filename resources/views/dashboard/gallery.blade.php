@@ -1,5 +1,5 @@
-{-- Gallery View --}
-{-- This view handles the display and user interaction for Gallery. --}
+{{-- Gallery View --}}
+{{-- This view handles the display and user interaction for Gallery. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Gallery Management')

@@ -1,5 +1,5 @@
-{-- User Accounts View --}
-{-- This view handles the display and user interaction for User Accounts. --}
+{{-- User Accounts View --}}
+{{-- This view handles the display and user interaction for User Accounts. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Client Accounts')
@@ -55,6 +55,7 @@
                         <tr class="text-left text-xs font-bold text-gray-400 uppercase tracking-wider">
                             <th class="pb-3">Client Name</th>
                             <th class="pb-3">Contact Info</th>
+                            <th class="pb-3">Role</th>
                             <th class="pb-3">Account Status</th>
                             <th class="pb-3">2FA Security</th>
                             <th class="pb-3 text-right pr-4">Actions</th>
@@ -105,6 +106,11 @@
                                         <div class="font-medium text-gray-900">{{ $user->email }}</div>
                                         <div class="text-gray-500 text-xs">{{ $user->phone }}</div>
                                     </div>
+                                </td>
+                                <td class="py-4">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-[#8B1C3A]/10 text-[#8B1C3A] capitalize">
+                                        {{ $user->role ?? 'client' }}
+                                    </span>
                                 </td>
                                 <td class="py-4">
                                     <div class="flex items-center space-x-3">

@@ -1,5 +1,5 @@
-{-- Reservations View --}
-{-- This view handles the display and user interaction for Reservations. --}
+{{-- Reservations View --}}
+{{-- This view handles the display and user interaction for Reservations. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Reservations')

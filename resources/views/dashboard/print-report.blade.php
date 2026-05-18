@@ -1,5 +1,5 @@
-{-- Print Report View --}
-{-- This view handles the display and user interaction for Print Report. --}
+{{-- Print Report View --}}
+{{-- This view handles the display and user interaction for Print Report. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>

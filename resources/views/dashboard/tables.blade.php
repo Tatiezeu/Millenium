@@ -1,5 +1,5 @@
-{-- Tables View --}
-{-- This view handles the display and user interaction for Tables. --}
+{{-- Tables View --}}
+{{-- This view handles the display and user interaction for Tables. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Tables')

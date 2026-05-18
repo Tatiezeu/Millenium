@@ -1,5 +1,5 @@
-{-- Index View --}
-{-- This view handles the display and user interaction for Index. --}
+{{-- Index View --}}
+{{-- This view handles the display and user interaction for Index. --}}
 @extends('layouts.dashboard')
 
 @section('title', 'Dashboard')
@@ -58,8 +58,16 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Orders -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="p-6 border-b border-gray-50">
+            <div class="p-6 border-b border-gray-50 flex items-center justify-between">
                 <h3 class="font-bold text-gray-900">Recent Orders</h3>
+                <form action="{{ route('orders.clear-all') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all orders in the database?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-xs font-bold text-red-600 hover:text-red-800 transition-colors flex items-center gap-1">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        Clear All
+                    </button>
+                </form>
             </div>
             <div class="p-6">
                 <div class="space-y-4">
@@ -88,8 +96,16 @@
 
         <!-- Upcoming Reservations -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="p-6 border-b border-gray-50">
+            <div class="p-6 border-b border-gray-50 flex items-center justify-between">
                 <h3 class="font-bold text-gray-900">Upcoming Reservations</h3>
+                <form action="{{ route('reservations.clear-all') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all reservations in the database?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-xs font-bold text-red-600 hover:text-red-800 transition-colors flex items-center gap-1">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        Clear All
+                    </button>
+                </form>
             </div>
             <div class="p-6">
                 <div class="space-y-3">

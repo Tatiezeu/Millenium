@@ -151,8 +151,9 @@ class AuthController extends Controller
 
         if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts($throttleKey, $maxAttempts)) {
             $seconds = \Illuminate\Support\Facades\RateLimiter::availableIn($throttleKey);
+            $minutes = ceil($seconds / 60);
             return back()->withErrors([
-                'email' => "Too many login attempts. Please try again in $seconds seconds.",
+                'email' => "Account blocked due to too many failed attempts. Please try again in $minutes minutes.",
             ])->onlyInput('email');
         }
 
@@ -198,13 +199,18 @@ class AuthController extends Controller
             // Redirect to dashboard with a personalized welcome message
             return redirect('/dashboard')->with('welcome', 'Welcome back, ' . $user->name . '!');
         }
+        $lockoutMinutes = (int) \App\Models\Setting::get('session_timeout', 30);
+        \Illuminate\Support\Facades\RateLimiter::hit($throttleKey, $lockoutMinutes * 60);
 
-        \Illuminate\Support\Facades\RateLimiter::hit($throttleKey, 60);
+        $attempts = \Illuminate\Support\Facades\RateLimiter::attempts($throttleKey);
+        $remaining = max(0, $maxAttempts - $attempts);
 
         // If login fails, redirect back with an error message
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        ])->with('remaining_attempts', $remaining)
+          ->with('max_attempts', $maxAttempts)
+          ->onlyInput('email');
     }
 
     /**
