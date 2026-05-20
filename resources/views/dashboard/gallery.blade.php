@@ -21,7 +21,7 @@
         @forelse($images as $image)
             <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group">
                 <div class="relative h-48 overflow-hidden">
-                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $image->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ Str::startsWith($image->image_path, ['http://', 'https://']) ? $image->image_path : asset('storage/' . $image->image_path) }}" alt="{{ $image->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                         <form action="{{ route('gallery.destroy', $image->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this image?')">
                             @csrf

@@ -823,8 +823,8 @@
       --}}
       @forelse($gallery as $img)
         <div class="gallery-item">
-            <!-- Render the dynamic image using Laravel's public asset storage disk -->
-            <img src="{{ asset('storage/' . $img->image_path) }}" alt="{{ $img->title }}">
+            <!-- Render the dynamic image supporting both direct URLs and local storage uploads -->
+            <img src="{{ Str::startsWith($img->image_path, ['http://', 'https://']) ? $img->image_path : asset('storage/' . $img->image_path) }}" alt="{{ $img->title }}">
             <div class="gallery-overlay">
                 <div class="text-center">
                     <p class="text-white font-bold text-sm">{{ $img->title }}</p>
